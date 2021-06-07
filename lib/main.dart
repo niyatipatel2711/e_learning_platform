@@ -31,6 +31,23 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   late AnimationController _animationController;
   late Animation<double> _animation;
 
+  // Future checkFirstSeen() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   bool _seen = (prefs.getBool('seen') ?? false);
+
+  //   if (_seen) {
+  //     Navigator.of(context).pushReplacement(
+  //         new MaterialPageRoute(builder: (context) => new HomePage()));
+  //   } else {
+  //     await prefs.setBool('seen', true);
+  //     Navigator.of(context).pushReplacement(
+  //         new MaterialPageRoute(builder: (context) => new Onbording_screen()));
+  //   }
+  // }
+
+  // @override
+  // void afterFirstLayout(BuildContext context) => checkFirstSeen();
+
   @override
   void initState() {
     _animationController = AnimationController(vsync: this, duration: Duration(seconds: 2));

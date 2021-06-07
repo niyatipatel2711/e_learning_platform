@@ -52,17 +52,24 @@ class Onbording_screen_State extends State<Onbording_screen> {
               // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                    alignment: Alignment.centerRight,
-                    child: FlatButton(
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(),));
-                      },
-                      child: Text(
-                        "Skip",
-                        style: GoogleFonts.didactGothic(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
+                  alignment: Alignment.centerRight,
+                  child: FlatButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(),
+                          ));
+                    },
+                    child: Text(
+                      _currentpage == _numpage - 1 ? " " : "Skip",
+                      style: GoogleFonts.didactGothic(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
+                ),
                 Container(
                   height: 550,
                   child: PageView(
@@ -80,7 +87,8 @@ class Onbording_screen_State extends State<Onbording_screen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Center(
-                              child: SvgPicture.asset('assets/connect.svg', height: 300, width: 300),
+                              child: SvgPicture.asset('assets/connect.svg',
+                                  height: 300, width: 300),
                             ),
                             SizedBox(height: 20.0),
                             Text(
@@ -111,26 +119,27 @@ class Onbording_screen_State extends State<Onbording_screen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Center(
-                              child: SvgPicture.asset('assets/queans.svg', height: 300, width: 300),
+                              child: SvgPicture.asset('assets/queans.svg',
+                                  height: 300, width: 300),
                             ),
                             SizedBox(height: 20.0),
                             Text(
-                              'Question and Answer',
+                              'Q & A',
                               style: GoogleFonts.didactGothic(
-                                  fontSize: 30,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                                fontSize: 30,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                             SizedBox(height: 10.0),
                             Text(
                               'Most common topics on forums include questions, comparisons, polls of opinion, as well as debates.Here  people can do conversation about course related queries and doubts.',
                               style: GoogleFonts.didactGothic(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w300,
-                                ),
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -142,26 +151,27 @@ class Onbording_screen_State extends State<Onbording_screen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Center(
-                              child: SvgPicture.asset('assets/enroll.svg', height: 300, width: 300),
+                              child: SvgPicture.asset('assets/enroll.svg',
+                                  height: 300, width: 300),
                             ),
                             SizedBox(height: 20.0),
                             Text(
                               'Enroll in high quality courses',
                               style: GoogleFonts.didactGothic(
-                                  fontSize: 30,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                                fontSize: 30,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                             SizedBox(height: 10.0),
                             Text(
                               'Students can explore any course published on YouTube and they can enroll any courses they prefer.',
                               style: GoogleFonts.didactGothic(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w300,
-                                ),
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -210,37 +220,38 @@ class Onbording_screen_State extends State<Onbording_screen> {
         ),
         bottomSheet: _currentpage == _numpage - 1
             ? InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(),));
-              },
-                          child: Container(
-                  margin: EdgeInsets.all(5),
-                  height: 50,
-                  width: 400,
-                  //color: Color(0xFF2657CE),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
-                    color: Colors.white,
-                  ),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Let's start ",
-                          style: GoogleFonts.didactGothic(
-                              color: Color(0xFF2657CE),
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios_outlined,
-                          color: Color(0xFF2657CE),
-                        )
-                      ],
-                    ),
-                  )),
-            )
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(),
+                      ));
+                },
+                child: Container(
+                    padding: EdgeInsets.all(5),
+                    height: 50,
+                    width: double.infinity,
+                    color: Colors.transparent,
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Get started",
+                            style: GoogleFonts.didactGothic(
+                                color: Color(0xFF2657CE),
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(width: 10),
+                          Icon(
+                            Icons.arrow_forward_ios_outlined,
+                            color: Color(0xFF2657CE),
+                          )
+                        ],
+                      ),
+                    )),
+              )
             : Text(""));
   }
 }
