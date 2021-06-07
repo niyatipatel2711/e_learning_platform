@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void Main() {
+void main() {
   runApp(Onbording_screen());
 }
 
@@ -84,7 +84,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
                           children: [
                             Center(
                               child: Image(
-                                image: AssetImage("images/onboarding1.png"),
+                                image: AssetImage("assets/images/onboarding1.png"),
                                 height: 250,
                                 width: 250,
                               ),
@@ -115,7 +115,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
                           children: [
                             Center(
                               child: Image(
-                                image: AssetImage("images/onboarding3.png"),
+                                image: AssetImage("assets/images/onboarding3.png"),
                                 height: 250,
                                 width: 250,
                               ),
@@ -146,7 +146,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
                           children: [
                             Center(
                               child: Image(
-                                image: AssetImage("images/onboarding4.png"),
+                                image: AssetImage("assets/images/onboarding4.png"),
                                 height: 250,
                                 width: 250,
                               ),
