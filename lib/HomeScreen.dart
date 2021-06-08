@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Drawer.dart';
+
 class HomeScreen extends StatefulWidget {
   //  HomeScreen({ Key ? key }) : super(key: key);
 
@@ -12,33 +14,40 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xfff4f6fd),
-      body: Padding(
-        padding: EdgeInsets.only(left: 15, top: 60, right: 15),
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
+      appBar: AppBar(
+        title: Text(
                     "Welcome to E-Learn",
                     style: TextStyle(
                         fontSize: 25,
                         fontFamily: "Times and Roman",
                         color: Colors.black),
                   ),
-                  Container(
-                    height: 35,
-                    width: 35,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: NetworkImage(
-                                "https://previews.123rf.com/images/robuart/robuart1804/robuart180401032/100049635-boy-avatar-in-round-web-button-isolated-on-white-brunet-handsome-guy-in-shirt-with-tie-smiling-schoo.jpg"))),
-                  )
-                ],
-              ),
+                  backgroundColor: Color(0xffFF5954),
+  actions: [
+     Padding(
+       padding: EdgeInsets.only(right: 10.0, top: 10, bottom: 10),
+       child: Container(
+        
+                      height: 35,
+                      width: 35,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            
+                              image: NetworkImage(
+                                  "https://previews.123rf.com/images/robuart/robuart1804/robuart180401032/100049635-boy-avatar-in-round-web-button-isolated-on-white-brunet-handsome-guy-in-shirt-with-tie-smiling-schoo.jpg"))),
+                    ),
+     )
+  ],
+                  
+      ),
+      drawer:DrawerHome(),
+      body: Padding(
+        padding: EdgeInsets.only(left: 15, top: 10, right: 15),
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               SizedBox(
                 height: 10,
               ),
