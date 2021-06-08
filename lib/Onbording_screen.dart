@@ -1,3 +1,4 @@
+import 'package:e_learning/HomeScreen.dart';
 import 'package:flutter/material.dart';
 
 void Main() {
@@ -59,7 +60,8 @@ class Onbording_screen_State extends State<Onbording_screen> {
                 Container(
                   alignment: Alignment.centerRight,
                   child: FlatButton(
-                    onPressed: () {},
+                    onPressed: () {Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => HomeScreen()));},
                     child: Text(
                       "Skip",
                       style: TextStyle(color: Colors.white, fontSize: 20),
@@ -217,7 +219,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
                 color: Colors.white,
                 child: GestureDetector(
                   onTap: (){ Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => Onbording_screen()));},
+                        context, MaterialPageRoute(builder: (context) => HomeScreen()));},
                     child: Center(
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 10),

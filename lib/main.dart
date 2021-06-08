@@ -2,6 +2,8 @@ import 'package:e_learning/Onbording_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'CoursePage.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -17,6 +19,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Onbording_screen(),
+      routes:{'/CoursePage' : (context)=> CoursePage(),},
       debugShowCheckedModeBanner: false,
     );
   }
