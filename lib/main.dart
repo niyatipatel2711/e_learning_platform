@@ -1,8 +1,14 @@
 import 'package:e_learning/Onbording_screen.dart';
-import 'package:flutter/foundation.dart';
+import 'package:e_learning/homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+int? isViewed;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  isViewed = prefs.getInt('onBoard');
   runApp(MyApp());
 }
 
@@ -11,33 +17,61 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Onbording_screen(),
-      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({ Key? key }) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin{
+
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(vsync: this, duration: Duration(seconds: 2));
+
+    _animation = Tween(
+      begin: 0.0,
+      end: 1.0
+    ).animate(_animationController);
+
+    _animationController.forward();
+
+    _animation.addStatusListener((status) {
+      if(status == AnimationStatus.completed){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => isViewed != 0 ? Onbording_screen() : HomePage()));
+      }
+      else if(status == AnimationStatus.dismissed){
+        _animationController.forward();
+      }
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
+      body: Container(
+        child: Center(
+          child: FadeTransition(
+            opacity: _animation,
+            child: Image.asset('assets/images/logo1.png', height: 350, width: 350,),
+          )
         ),
-        body: Center());
+      ),
+    );
   }
 }

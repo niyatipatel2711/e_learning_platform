@@ -1,6 +1,10 @@
+import 'package:e_learning/homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void Main() {
+void main() {
   runApp(Onbording_screen());
 }
 
@@ -35,39 +39,46 @@ class Onbording_screen_State extends State<Onbording_screen> {
     );
   }
 
+  _storeOnBoardInfo() async {
+    int isViewed = 0;
+    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    await prefs.setInt('onBoard', isViewed);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
+          height: double.infinity,
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0.4, 0.8, 1, 0.9],
-            colors: [
-              Color(0xFFD35400),
-              Color(0xFF4563DB),
-              Color(0xFF5036D5),
-              Color(0xFF5B16D0),
-            ],
-          )),
+            color: Color(0xFFFF5954),
+          ),
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 45),
+            padding: EdgeInsets.symmetric(vertical: 25),
             child: Column(
               // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
                   alignment: Alignment.centerRight,
                   child: FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(),
+                          ));
+                    },
                     child: Text(
-                      "Skip",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      _currentpage == _numpage - 1 ? " " : "Skip",
+                      style: GoogleFonts.didactGothic(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
                 Container(
-                  height: 450,
+                  height: 550,
                   child: PageView(
                     physics: ClampingScrollPhysics(),
                     controller: _pageController,
@@ -78,94 +89,97 @@ class Onbording_screen_State extends State<Onbording_screen> {
                     },
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Center(
-                              child: Image(
-                                image: AssetImage("images/onboarding1.png"),
-                                height: 250,
-                                width: 250,
-                              ),
+                              child: SvgPicture.asset('assets/connect.svg',
+                                  height: 300, width: 300),
                             ),
-                            SizedBox(height: 5.0),
-                            Text('Connect people\naround the world',
-                                style: TextStyle(
-                                    fontFamily: 'CM Sans Serif',
-                                    fontSize: 25,
-                                    height: 1.2,
-                                    color: Colors.white)),
-                            SizedBox(height: 8.0),
+                            SizedBox(height: 20.0),
                             Text(
-                              'This is online learning platform. Here you are learn diffrent Courses and subject.',
-                              style: TextStyle(
-                                  fontFamily: 'CM Sans Serif',
-                                  fontSize: 18,
-                                  height: 1,
-                                  color: Colors.white),
+                              'Connect people around the world',
+                              style: GoogleFonts.didactGothic(
+                                fontSize: 30,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 10.0),
+                            Text(
+                              'This is online learning platform. Here you will learn diffrent courses and subject.',
+                              style: GoogleFonts.didactGothic(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Center(
-                              child: Image(
-                                image: AssetImage("images/onboarding3.png"),
-                                height: 250,
-                                width: 250,
-                              ),
+                              child: SvgPicture.asset('assets/queans.svg',
+                                  height: 300, width: 300),
                             ),
-                            SizedBox(height: 30.0),
-                            Text('Quation and Answer',
-                                style: TextStyle(
-                                    fontFamily: 'CM Sans Serif',
-                                    fontSize: 25,
-                                    height: 1.2,
-                                    color: Colors.white)),
-                            SizedBox(height: 15.0),
+                            SizedBox(height: 20.0),
                             Text(
-                              'Most common topics on forums include questions, comparisons, polls of opinion, as well as debates.Here  people can do conversation about course related query and doubt.',
-                              style: TextStyle(
-                                  fontFamily: 'CM Sans Serif',
-                                  fontSize: 18,
-                                  height: 1,
-                                  color: Colors.white),
+                              'Q & A',
+                              style: GoogleFonts.didactGothic(
+                                fontSize: 30,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 10.0),
+                            Text(
+                              'Most common topics on forums include questions, comparisons, polls of opinion, as well as debates.Here  people can do conversation about course related queries and doubts.',
+                              style: GoogleFonts.didactGothic(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Center(
-                              child: Image(
-                                image: AssetImage("images/onboarding4.png"),
-                                height: 250,
-                                width: 250,
-                              ),
+                              child: SvgPicture.asset('assets/enroll.svg',
+                                  height: 300, width: 300),
                             ),
-                            SizedBox(height: 30.0),
-                            Text('Connect people\naround the world',
-                                style: TextStyle(
-                                    fontFamily: 'CM Sans Serif',
-                                    fontSize: 25,
-                                    height: 1.2,
-                                    color: Colors.white)),
-                            SizedBox(height: 15.0),
+                            SizedBox(height: 20.0),
                             Text(
-                              'This is online learning platform. Here you are learn diffrent Courses and subject.',
-                              style: TextStyle(
-                                  fontFamily: 'CM Sans Serif',
-                                  fontSize: 18,
-                                  height: 1,
-                                  color: Colors.white),
+                              'Enroll in high quality courses',
+                              style: GoogleFonts.didactGothic(
+                                fontSize: 30,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 10.0),
+                            Text(
+                              'Students can explore any course published on YouTube and they can enroll any courses they prefer.',
+                              style: GoogleFonts.didactGothic(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         ),
@@ -173,6 +187,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
                     ],
                   ),
                 ),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: _buildPageIndicator(),
@@ -182,7 +197,8 @@ class Onbording_screen_State extends State<Onbording_screen> {
                         child: Align(
                         alignment: FractionalOffset.bottomRight,
                         child: FlatButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            await _storeOnBoardInfo();
                             _pageController.nextPage(
                                 duration: Duration(milliseconds: 500),
                                 curve: Curves.ease);
@@ -193,7 +209,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
                             children: [
                               Text(
                                 'Next',
-                                style: TextStyle(
+                                style: GoogleFonts.didactGothic(
                                     color: Colors.white, fontSize: 22.0),
                               ),
                               SizedBox(width: 10),
@@ -211,25 +227,40 @@ class Onbording_screen_State extends State<Onbording_screen> {
           ),
         ),
         bottomSheet: _currentpage == _numpage - 1
-            ? Container(
-                height: 70,
-                width: double.infinity,
-                color: Colors.white,
-                child: GestureDetector(
-                  onTap: (){ Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => Onbording_screen()));},
+            ? InkWell(
+                onTap: () async {
+                  await _storeOnBoardInfo();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(),
+                      ));
+                },
+                child: Container(
+                    padding: EdgeInsets.all(5),
+                    height: 50,
+                    width: double.infinity,
+                    color: Colors.transparent,
                     child: Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: Text(
-                      "Let's Start ",
-                      style: TextStyle(
-                          color: Colors.purple,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                )))
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Get started",
+                            style: GoogleFonts.didactGothic(
+                                color: Color(0xFF2657CE),
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(width: 10),
+                          Icon(
+                            Icons.arrow_forward_ios_outlined,
+                            color: Color(0xFF2657CE),
+                          )
+                        ],
+                      ),
+                    )),
+              )
             : Text(""));
   }
 }
