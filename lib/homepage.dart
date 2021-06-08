@@ -1,3 +1,4 @@
+import 'package:e_learning/constants.dart';
 import 'package:flutter/material.dart';
 class HomePage extends StatefulWidget {
   
@@ -13,8 +14,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Homepage'),
+      body: Container(
+        color: background,
+        child: Center(child: Text('Hello')),
       ),
     );
   }

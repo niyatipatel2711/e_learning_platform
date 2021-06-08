@@ -2,6 +2,7 @@ import 'package:e_learning/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(Onbording_screen());
@@ -36,6 +37,12 @@ class Onbording_screen_State extends State<Onbording_screen> {
         borderRadius: BorderRadius.all(Radius.circular(15)),
       ),
     );
+  }
+
+  _storeOnBoardInfo() async {
+    int isViewed = 0;
+    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    await prefs.setInt('onBoard', isViewed);
   }
 
   @override
@@ -190,7 +197,8 @@ class Onbording_screen_State extends State<Onbording_screen> {
                         child: Align(
                         alignment: FractionalOffset.bottomRight,
                         child: FlatButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            await _storeOnBoardInfo();
                             _pageController.nextPage(
                                 duration: Duration(milliseconds: 500),
                                 curve: Curves.ease);
@@ -220,7 +228,8 @@ class Onbording_screen_State extends State<Onbording_screen> {
         ),
         bottomSheet: _currentpage == _numpage - 1
             ? InkWell(
-                onTap: () {
+                onTap: () async {
+                  await _storeOnBoardInfo();
                   Navigator.push(
                       context,
                       MaterialPageRoute(

@@ -1,7 +1,14 @@
 import 'package:e_learning/Onbording_screen.dart';
+import 'package:e_learning/homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+int? isViewed;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  isViewed = prefs.getInt('onBoard');
   runApp(MyApp());
 }
 
@@ -31,23 +38,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   late AnimationController _animationController;
   late Animation<double> _animation;
 
-  // Future checkFirstSeen() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool _seen = (prefs.getBool('seen') ?? false);
-
-  //   if (_seen) {
-  //     Navigator.of(context).pushReplacement(
-  //         new MaterialPageRoute(builder: (context) => new HomePage()));
-  //   } else {
-  //     await prefs.setBool('seen', true);
-  //     Navigator.of(context).pushReplacement(
-  //         new MaterialPageRoute(builder: (context) => new Onbording_screen()));
-  //   }
-  // }
-
-  // @override
-  // void afterFirstLayout(BuildContext context) => checkFirstSeen();
-
   @override
   void initState() {
     _animationController = AnimationController(vsync: this, duration: Duration(seconds: 2));
@@ -61,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
     _animation.addStatusListener((status) {
       if(status == AnimationStatus.completed){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Onbording_screen()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => isViewed != 0 ? Onbording_screen() : HomePage()));
       }
       else if(status == AnimationStatus.dismissed){
         _animationController.forward();
