@@ -1,7 +1,10 @@
 import 'package:e_learning/Onbording_screen.dart';
 import 'package:e_learning/homepage.dart';
+import 'package:e_learning/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'login.dart';
 
 int? isViewed;
 
@@ -51,7 +54,8 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
     _animation.addStatusListener((status) {
       if(status == AnimationStatus.completed){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => isViewed != 0 ? Onbording_screen() : HomePage()));
+        isViewed!=0 ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Onbording_screen())) : 
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
       }
       else if(status == AnimationStatus.dismissed){
         _animationController.forward();
@@ -64,14 +68,14 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Center(
-          child: FadeTransition(
-            opacity: _animation,
-            child: Image.asset('assets/images/logo1.png', height: 350, width: 350,),
-          )
+        body: Container(
+    child: Center(
+      child: FadeTransition(
+        opacity: _animation,
+        child: Image.asset('assets/images/logo1.png', height: 350, width: 350,),
+      )
+    ),
         ),
-      ),
-    );
+      );
   }
 }
