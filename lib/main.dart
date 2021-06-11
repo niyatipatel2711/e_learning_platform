@@ -1,14 +1,18 @@
-import 'package:e_learning/HomeScreen.dart';
 import 'package:e_learning/Onbording_screen.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'CoursePage.dart';
+
+import 'login_signup/login.dart';
 
 int? isViewed;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   isViewed = prefs.getInt('onBoard');
   runApp(MyApp());
@@ -32,36 +36,34 @@ class MyApp extends StatelessWidget {
 }
 
 class SplashScreen extends StatefulWidget {
-
-  const SplashScreen({ Key? key }) : super(key: key);
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin{
-
-
-   late AnimationController _animationController;
-   late Animation<double> _animation;
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this, duration: Duration(seconds: 2));
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 2));
 
-    _animation = Tween(
-      begin: 0.0,
-      end: 1.0
-    ).animate(_animationController);
+    _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController);
 
     _animationController.forward();
 
     _animation.addStatusListener((status) {
-      if(status == AnimationStatus.completed){
-
-        Navigator.push(context, MaterialPageRoute(builder: (context) => isViewed != 0 ? Onbording_screen() : HomeScreen()));
-      }
-      else if(status == AnimationStatus.dismissed){
+      if (status == AnimationStatus.completed) {
+        isViewed != 0
+            ? Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => Onbording_screen()))
+            : Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => Login()));
+      } else if (status == AnimationStatus.dismissed) {
         _animationController.forward();
       }
     });
@@ -74,12 +76,15 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     return Scaffold(
       body: Container(
         child: Center(
-          child: FadeTransition(
-            opacity: _animation,
-            child: SvgPicture.asset('assets/images/logo1.png', height: 350, width: 350,),
-          )
-        ),
-        ),
-        );
+            child: FadeTransition(
+          opacity: _animation,
+          child: Image.asset(
+            'assets/images/logo1.png',
+            height: 350,
+            width: 350,
+          ),
+        )),
+      ),
+    );
   }
 }

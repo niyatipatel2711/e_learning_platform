@@ -1,7 +1,11 @@
 import 'package:e_learning/HomeScreen.dart';
+import 'package:e_learning/Onbording_screen.dart';
+import 'package:e_learning/login_signup/login.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:ui';
+
+import 'login_signup/methods.dart';
 
 class DrawerHome extends StatelessWidget {
   @override
@@ -90,7 +94,7 @@ class DrawerHome extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-            onTap: () {},
+            onTap: () {logOut().whenComplete(() => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Login(),), (route) => false));},
           ),
         ],
       ),
