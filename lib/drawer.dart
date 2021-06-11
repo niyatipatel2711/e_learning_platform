@@ -1,28 +1,24 @@
 import 'package:e_learning/HomeScreen.dart';
-import 'package:e_learning/constant.dart';
-import 'package:e_learning/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:e_learning/drawer.dart';
 
+import 'dart:ui';
 
 class DrawerHome extends StatelessWidget {
-  
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
-    child :  Column(
+      child: Column(
         children: [
           Container(
-             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(bottomLeft:Radius.circular(50),bottomRight:Radius.circular(50)),
-               color: Color(0xFFFF5954),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(50),
+                  bottomRight: Radius.circular(50)),
+              color: Color(0xFFFF5954),
             ),
             width: double.infinity,
             padding: EdgeInsets.all(20),
-           
             child: Center(
-              
               child: Column(
                 children: [
                   Container(
@@ -32,10 +28,11 @@ class DrawerHome extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                            image: AssetImage("images/logo1.png"),
+                            image: AssetImage("assets/images/logo1.png"),
                             fit: BoxFit.fill),
                       )),
-                  Text("Raj Bhavani",
+                  Text(
+                    "Raj Bhavani",
                     // _auth.currentUser.displayName,
                     // user.displayName,
                     style: TextStyle(
@@ -44,7 +41,8 @@ class DrawerHome extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  Text("Raj@gmail.com",
+                  Text(
+                    "Raj@gmail.com",
                     // _auth.currentUser.email,
                     // user.email,
                     style: TextStyle(
@@ -92,9 +90,7 @@ class DrawerHome extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-            onTap: () {
-              
-            },
+            onTap: () {},
           ),
         ],
       ),

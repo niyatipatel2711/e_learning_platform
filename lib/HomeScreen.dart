@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'Drawer.dart';
+
 
 class HomeScreen extends StatefulWidget {
   //  HomeScreen({ Key ? key }) : super(key: key);
@@ -20,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(
                         fontSize: 25,
                         fontFamily: "Times and Roman",
-                        color: Colors.black),
+                        color: Color(0xff0D1333)),
                   ),
                   backgroundColor: Color(0xffFF5954),
   actions: [
@@ -33,13 +35,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                            
-                              image: NetworkImage(
-                                  "https://previews.123rf.com/images/robuart/robuart1804/robuart180401032/100049635-boy-avatar-in-round-web-button-isolated-on-white-brunet-handsome-guy-in-shirt-with-tie-smiling-schoo.jpg"))),
+                              image: AssetImage('assets/images/img1.png'),
+                                  ),
+                                  ),
                     ),
      )
   ],
-                  
+
       ),
       drawer:DrawerHome(),
       body: Padding(
@@ -54,7 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Text(
                 "What do you \nwant to \nlearn Today ?",
                 style: TextStyle(
-                    fontSize: 35, fontWeight: FontWeight.w800, height: 1.2),
+                    fontSize: 35, fontWeight: FontWeight.w800, height: 1.2,
+                    color: Color(0xff0D1333)),
               ),
               SizedBox(
                 height: 10,
@@ -100,7 +103,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-
                Container(
               padding: EdgeInsets.all(5),
               child: Row(
@@ -140,6 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Container Courseswidget(String catagory, String title, String img,
       Color caragotycolor, Color bgColor) {
     return Container(
@@ -148,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
           color: bgColor, borderRadius: BorderRadius.all(Radius.circular(20))),
       child: InkWell(
         onTap: () {
-          openCoursePage('$img');
+          openCoursePage('$img','$title');
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 1,
                   color: (bgColor == Color(0xffff5954)
                       ? Colors.white
-                      : Colors.black)),
+                      :Color(0xff0D1333) )),
             ),
             SizedBox(
               height: 10,
@@ -186,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 80,
                 decoration: BoxDecoration(
                     image:
-                        DecorationImage(image: AssetImage('images/$img.png'))),
+                        DecorationImage(image: AssetImage('assets/images/$img.png'))),
               ),
             ),
           ],
@@ -195,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void openCoursePage(String img) {
-    Navigator.pushNamed(context, '/CoursePage', arguments: {'img': '$img'});
+  void openCoursePage(String img, String title) {
+    Navigator.pushNamed(context, '/CoursePage', arguments: {'img': '$img','title':'$title'});
   }
 }

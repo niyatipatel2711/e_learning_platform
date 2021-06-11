@@ -1,11 +1,11 @@
 import 'package:e_learning/HomeScreen.dart';
 import 'package:e_learning/Onbording_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'CoursePage.dart';
 
-int isViewed;
+int? isViewed;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,13 +24,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: SplashScreen(),
-       routes:{'/CoursePage' : (context)=> CoursePage(),},
+      routes: {
+        '/CoursePage': (context) => CoursePage(),
+      },
     );
   }
 }
 
 class SplashScreen extends StatefulWidget {
-  // const SplashScreen({ Key? key }) : super(key: key);
+
+  const SplashScreen({ Key? key }) : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -38,8 +41,9 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin{
 
-   AnimationController _animationController;
-   Animation<double> _animation;
+
+   late AnimationController _animationController;
+   late Animation<double> _animation;
 
   @override
   void initState() {
@@ -54,6 +58,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
     _animation.addStatusListener((status) {
       if(status == AnimationStatus.completed){
+
         Navigator.push(context, MaterialPageRoute(builder: (context) => isViewed != 0 ? Onbording_screen() : HomeScreen()));
       }
       else if(status == AnimationStatus.dismissed){
@@ -71,10 +76,10 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
         child: Center(
           child: FadeTransition(
             opacity: _animation,
-            child: Image.asset('images/logo1.png', height: 350, width: 350,),
+            child: SvgPicture.asset('assets/images/logo1.png', height: 350, width: 350,),
           )
         ),
-      ),
-    );
+        ),
+        );
   }
 }

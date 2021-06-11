@@ -1,18 +1,21 @@
-import 'package:e_learning/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:ui';
+import 'HomeScreen.dart';
 
 void main() {
   runApp(Onbording_screen());
 }
 
+// ignore: camel_case_types
 class Onbording_screen extends StatefulWidget {
   @override
   Onbording_screen_State createState() => Onbording_screen_State();
 }
 
+// ignore: camel_case_types
 class Onbording_screen_State extends State<Onbording_screen> {
   final PageController _pageController = PageController(initialPage: 0);
   int _currentpage = 0;
@@ -41,7 +44,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
 
   _storeOnBoardInfo() async {
     int isViewed = 0;
-    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('onBoard', isViewed);
   }
 
@@ -60,6 +63,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
               children: [
                 Container(
                   alignment: Alignment.centerRight,
+                  // ignore: deprecated_member_use
                   child: FlatButton(
                     onPressed: () {
                       Navigator.push(
@@ -94,7 +98,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Center(
-                              child: SvgPicture.asset('images/connect.svg',
+                              child: SvgPicture.asset('assets/connect.svg',
                                   height: 300, width: 300),
                             ),
                             SizedBox(height: 20.0),
@@ -126,7 +130,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Center(
-                              child: SvgPicture.asset('images/queans.svg',
+                              child: SvgPicture.asset('assets/queans.svg',
                                   height: 300, width: 300),
                             ),
                             SizedBox(height: 20.0),
@@ -158,7 +162,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Center(
-                              child: SvgPicture.asset('images/enroll.svg',
+                              child: SvgPicture.asset('assets/enroll.svg',
                                   height: 300, width: 300),
                             ),
                             SizedBox(height: 20.0),
@@ -196,6 +200,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
                     ? Expanded(
                         child: Align(
                         alignment: FractionalOffset.bottomRight,
+                        // ignore: deprecated_member_use
                         child: FlatButton(
                           onPressed: () async {
                             await _storeOnBoardInfo();
