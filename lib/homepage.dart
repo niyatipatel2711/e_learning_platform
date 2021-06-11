@@ -1,4 +1,6 @@
+import 'package:e_learning/Onbording_screen.dart';
 import 'package:e_learning/constants.dart';
+import 'package:e_learning/login_signup/methods.dart';
 import 'package:flutter/material.dart';
 class HomePage extends StatefulWidget {
   
@@ -16,7 +18,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Container(
         color: background,
-        child: Center(child: Text('Hello')),
+        child: Center(
+          child: ElevatedButton(
+            child: Text('Sign out'),
+            onPressed: (){
+              logOut().whenComplete(() => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Onbording_screen(),), (route) => false));
+            },
+          ),
+        ),
       ),
     );
   }
