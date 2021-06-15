@@ -1,4 +1,6 @@
+import 'package:e_learning/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CoursePage extends StatefulWidget {
   @override
@@ -14,104 +16,128 @@ class _CoursePageState extends State<CoursePage> {
     courseImg = arguments["img"];
     courseTitle = arguments["title"];
     return Scaffold(
-      // backgroundColor: Colors.white,
+      backgroundColor: tooLightBlue,
       appBar: AppBar(
-        backgroundColor: Color(0xDDff5954),
+        //backgroundColor: Color(0xDDff5954),
         title: Text(
           '$courseTitle',
-          style: TextStyle(color: Color(0xff0D1333)),
+          style: GoogleFonts.poppins(
+            color: blue,
+            fontWeight: FontWeight.w500
+          ),
         ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back),
-          color: Color(0xff0D1333),
+          icon: Icon(Icons.arrow_back_ios_new_outlined),
+          color: blue,
         ),
       ),
 
       body: Container(
-        padding: EdgeInsets.all(15),
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.all(15),
+              margin: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(15)),
                 color: Color(0xffFFC341),
+                boxShadow: [
+                        BoxShadow(
+                          color: yellow,
+                          offset: Offset(0.0, 1.0),
+                          blurRadius: 6.0,
+                        ),
+                      ]
               ),
               child: Hero(
                   tag: '$courseImg',
                   child: Container(
                     height: 150,
+                    margin: EdgeInsets.all(20),
                     width: MediaQuery.of(context).size.width,
                     child: Container(
-                      child: Text(
-                        " Free of Cost! ",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.black),
-                      ),
+                      // child: Text(
+                      //   " Free of Cost! ",
+                      //   style: TextStyle(
+                      //       fontSize: 20,
+                      //       fontWeight: FontWeight.w300,
+                      //       color: Colors.black),
+                      // ),
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                       image: DecorationImage(
-                          image: AssetImage("assets/images/$courseImg.png")),
+                          image: AssetImage("assets/images/$courseImg.png"),
+                      ),
+                      
                     ),
                   )),
             ),
             SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Course",
-                  style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10,),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    color: Color(0xffd3defa),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Course details",
+                    style: GoogleFonts.poppins(fontSize: 23, fontWeight: FontWeight.w600),
                   ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 35,
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.timer),
-                          color: Colors.black,
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10,),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      color: Color(0xffd3defa),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 35,
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.timer),
+                            color: blue,
+                          ),
                         ),
-                      ),
-                      Text(
-                        "5 Hours, 07 Min",
-                        style: TextStyle(color: Colors.black.withOpacity(0.6)),
-                      )
-                    ],
+                        SizedBox(width: 5),
+                        Text(
+                          "5 Hours, 07 Min",
+                          style: GoogleFonts.poppins(color: blue),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             SizedBox(
               height: 10,
             ),
             Expanded(
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    productListing(
-                        'Introduction', 'Introduction of the course', 'active'),
-                    productListing('Language of Color',
-                        'Learn about the language of..', 'inactive'),
-                    productListing('Psychology of Color',
-                        'Learn about the psychology of..', 'inactive'),
-                    productListing('Language of Color',
-                        'Learn about the language of..', 'inactive')
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    children: [
+                      productListing(
+                          'Introduction', 'Introduction of the course', 'active'),
+                          
+                      productListing('Language of Color',
+                          'Learn about the language of..', 'inactive'),
+                     
+                      productListing('Psychology of Color',
+                          'Learn about the psychology of..', 'inactive'),
+                      
+                      productListing('Language of Color',
+                          'Learn about the language of..', 'inactive')
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -119,9 +145,9 @@ class _CoursePageState extends State<CoursePage> {
               height: 2,
             ),
             Container(
+              padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-                color: Colors.black,
               ),
               // ignore: deprecated_member_use
               child: RaisedButton(
@@ -134,8 +160,8 @@ class _CoursePageState extends State<CoursePage> {
                 ),
                 child: Text(
                   "Continue",
-                  style: TextStyle(
-                      fontSize: 25,
+                  style: GoogleFonts.poppins(
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
@@ -163,7 +189,7 @@ class _CoursePageState extends State<CoursePage> {
                       ? Color(0xff2657ce)
                       : Color(0xffd3defa),
                   borderRadius: BorderRadius.all(
-                    Radius.circular(30),
+                    Radius.circular(15),
                   )),
               child: Icon(
                 Icons.play_arrow,
@@ -180,27 +206,28 @@ class _CoursePageState extends State<CoursePage> {
               children: [
                 Text(
                   '$title',
-                  style: TextStyle(
-                    fontSize: 20,
+                  style: GoogleFonts.poppins(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: darkBlue
                   ),
                 ),
                 Text(
                   '$info',
-                  style: TextStyle(
-                    fontSize: 18,
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.blueGrey
                   ),
                 ),
               ],
             )
           ],
         ),
-        Center(
-          child: Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
-            width: MediaQuery.of(context).size.width * .70,
-            height: 0.7,
-            color: Color(0xff2657CE),
-          ),
+        SizedBox(height: 10),
+        Divider(
+          color: lightBlue,
+          thickness: 1,
         )
       ],
     );
