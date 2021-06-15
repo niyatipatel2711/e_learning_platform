@@ -9,8 +9,12 @@ import 'dart:ui';
 import 'login_signup/methods.dart';
 
 class DrawerHome extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    
+    final user = FirebaseAuth.instance.currentUser;
+
     return Drawer(
       child: Column(
         children: [
@@ -40,8 +44,7 @@ class DrawerHome extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   Text(
-                    "Raj Bhavani",
-                    // auth.currentUser.,
+                    user!.displayName.toString(),
                     // _auth.currentUser.displayName,
                     // user.displayName,
                     style: GoogleFonts.poppins(
@@ -51,7 +54,7 @@ class DrawerHome extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Raj@gmail.com",
+                    user.email.toString(),
                     // _auth.currentUser.email,
                     // user.email,
                     style: GoogleFonts.poppins(

@@ -248,8 +248,6 @@ class _SignUpState extends State<SignUp> {
                                                     onPressed: () {
                                                       Navigator.of(context)
                                                           .pop();
-                                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen(),));
-=======
                                                       Navigator.pushReplacement(
                                                           context,
                                                           MaterialPageRoute(
