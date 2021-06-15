@@ -1,11 +1,13 @@
 import 'dart:io';
-
-import 'package:e_learning/homepage.dart';
+import 'package:e_learning/HomeScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
+
+import 'login_signup/login.dart';
 
 void main() {
   runApp(Onbording_screen());
@@ -51,6 +53,11 @@ class Onbording_screen_State extends State<Onbording_screen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Future<bool> _onBackPressed() {
       exit(0);
@@ -77,7 +84,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomePage(),
+                              builder: (context) => HomeScreen(),
                             ));
                       },
                       child: Text(
@@ -243,11 +250,18 @@ class Onbording_screen_State extends State<Onbording_screen> {
               ? InkWell(
                   onTap: () async {
                     await _storeOnBoardInfo();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(),
-                        ));
+
+                    if (FirebaseAuth.instance.currentUser == null) {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
+                          (route) => false);
+                    } else {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomeScreen()), 
+                          (route) => false);
+                    }
                   },
                   child: Container(
                       padding: EdgeInsets.all(5),

@@ -83,6 +83,7 @@ class _LoginState extends State<Login> {
                     SizedBox(height: 20),
                     TextFormField(
                       controller: _password,
+                      obscureText: true,
                       style: GoogleFonts.poppins(color: blue),
                       decoration: InputDecoration(
                         filled: true,
@@ -242,7 +243,102 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         GestureDetector(
-                          onTap: () => signInWithGoogle().whenComplete(() => HomeScreen()),
+                          onTap: () {
+                            signInWithGoogle().then((user) {
+                            if (user != null) {
+                              setState(() {
+                                isLoading = false;
+                              });
+                              showDialog(
+                                barrierDismissible: false,
+                                context: context, 
+                                builder: (BuildContext context){
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(32),),
+                                  ),
+                                  elevation: 8,
+                                  child: Container(
+                                    height: 220,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20.0),
+                                      child: Center(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Image.asset('assets/images/loginSuccess.png', height: 40, width: 40,),
+                                            SizedBox(height: 20,),
+                                            Text(
+                                              'Login successful!',
+                                              style: GoogleFonts.poppins(
+                                                fontSize: 20,
+                                                color: Colors.green,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            SizedBox(height: 20),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen(),));
+                                              }, 
+                                              child: Text('Ok')
+                                            )
+                                        ]),
+                                      ),
+                                    ),
+                                  ),
+                              );
+                            });
+                              // print("Login successful");
+                            } else {
+                              //print("Login failed");
+                              setState(() {
+                                isLoading = false;
+                              });
+                              showDialog(
+                              barrierDismissible: false,
+                              context: context, 
+                              builder: (BuildContext context){
+                              return Dialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(32),),
+                                ),
+                                elevation: 8,
+                                child: Container(
+                                  height: 220,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Center(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Image.asset('assets/images/failed.png', height: 40, width: 40,),
+                                          SizedBox(height: 20,),
+                                          Text(
+                                            'Login failed!',
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 20,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          SizedBox(height: 20),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            }, 
+                                            child: Text('Retry')
+                                          )
+                                      ]),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            });
+                            }
+                          });
+                          },
                                                   child: Container(
                             width: 100,
                             padding: const EdgeInsets.all(8),
