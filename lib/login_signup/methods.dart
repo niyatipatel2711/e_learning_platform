@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
@@ -6,18 +7,22 @@ final googleSignIn = GoogleSignIn();
 
 // ignore: non_constant_identifier_names
 Future<bool?> SignUpUser(String name, String email, String password) async {
-
-  try{
+  try {
     // ignore: unused_local_variable
-    UserCredential result = await auth.createUserWithEmailAndPassword(email: email, password: password);
+    UserCredential result = await auth.createUserWithEmailAndPassword(
+        email: email, password: password);
     // User? user = result.user;
     return Future.value(true);
-  }
-  catch(e){
-    switch(e){
-      case 'ERROR_EMAIL_ALREADY_IN_USE':
-        print('serror');
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'weak-password') {
+      print('The password provided is too weak.');
+    } else if (e.code == 'email-already-in-use') {
+      print('The account already exists for that email.');
     }
+  } on PlatformException catch(e) {
+    print(e);
+  } catch (e) {
+    print('Error: $e');
   }
 
   // FirebaseAuth _auth = FirebaseAuth.instance;
@@ -41,18 +46,23 @@ Future<bool?> SignUpUser(String name, String email, String password) async {
 }
 
 Future<bool?> loginUser(String email, String password) async {
-
-  try{
+  try {
     // ignore: unused_local_variable
-    UserCredential result = await auth.signInWithEmailAndPassword(email: email, password: password);
+    UserCredential result =
+        await auth.signInWithEmailAndPassword(email: email, password: password);
     // User? user = result.user;
     return Future.value(true);
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'user-not-found') {
+    print('No user found for that email.');
+  } else if (e.code == 'wrong-password') {
+    print('Wrong password provided for that user.');
   }
-  catch(e){
-    switch(e){
-      case 'ERROR_INVALID_EMAIL':
-        print('serror');
-    }
+  } on PlatformException catch(e) {
+    print(e);
+  }
+  catch (e) {
+    print('Error: $e');
   }
   // FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -74,35 +84,28 @@ Future<bool?> loginUser(String email, String password) async {
   // }
 }
 Future<void> logOut() async {
-
   await FirebaseAuth.instance.signOut();
+  await googleSignIn.signOut();
 
-  User? user = auth.currentUser;
-  
-  // if(user!.providerData[0].providerId == 'google.com'){
-  //   await googleSignIn.disconnect();
-  // }
-  // await auth.signOut();
-  // return Future.value(true);
+
 }
 
 Future<bool?> signInWithGoogle() async {
-    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+  final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
 
-    if(googleSignInAccount != null){
-      final GoogleSignInAuthentication googleAuth = await googleSignInAccount.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
+  if (googleSignInAccount != null) {
+    final GoogleSignInAuthentication googleAuth =
+        await googleSignInAccount.authentication;
+    final AuthCredential credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
 
-      UserCredential result = await auth.signInWithCredential(credential);
+    UserCredential result = await auth.signInWithCredential(credential);
 
-      User? user = auth.currentUser;
-      user = result.user;
+    User? user = auth.currentUser;
+    user = result.user;
 
-      print(user!.uid);
+    print(user!.uid);
 
-      return Future.value(true);
-
-    }
+    return Future.value(true);
   }
-
+}

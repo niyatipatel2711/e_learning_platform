@@ -37,6 +37,7 @@ dependencies:
   form_field_validator: ^1.1.0
   google_sign_in: ^5.0.4
   cloud_firestore: ^2.2.2
+  provider: ^5.0.0
 
 
 dev_dependencies:
@@ -57,7 +58,6 @@ flutter:
   assets:
     - assets/images/
     - assets/
-    - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -70,16 +70,16 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: HKGrotesk
+  # fonts:
+  #   - family: HKGrotesk
 
-      fonts:
-        - asset: assets/fonts/HKGrotesk-Bold.ttf
-        - asset: assets/fonts/HKGrotesk-Black.ttf
-        - asset: assets/fonts/HKGrotesk-BoldItalic.ttf
-        - asset: assets/fonts/HKGrotesk-ExtraBold.ttf
-        - asset: assets/fonts/HKGrotesk-Italic.ttf
-        - asset: assets/fonts/HKGrotesk-Light.ttf
+  #     fonts:
+  #       - asset: assets/fonts/HKGrotesk-Bold.ttf
+  #       - asset: assets/fonts/HKGrotesk-Black.ttf
+  #       - asset: assets/fonts/HKGrotesk-BoldItalic.ttf
+  #       - asset: assets/fonts/HKGrotesk-ExtraBold.ttf
+  #       - asset: assets/fonts/HKGrotesk-Italic.ttf
+  #       - asset: assets/fonts/HKGrotesk-Light.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

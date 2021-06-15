@@ -2,6 +2,7 @@ import 'package:e_learning/HomeScreen.dart';
 import 'package:e_learning/login_signup/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'dart:ui';
 
@@ -14,6 +15,7 @@ class DrawerHome extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            height: 200,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(50),
@@ -21,39 +23,41 @@ class DrawerHome extends StatelessWidget {
               color: Color(0xFFFF5954),
             ),
             width: double.infinity,
-            padding: EdgeInsets.all(20),
+            //padding: EdgeInsets.all(20),
             child: Center(
               child: Column(
                 children: [
                   Container(
-                      width: 100,
-                      height: 100,
+                      width: 200,
+                      height: 80,
                       margin: EdgeInsets.only(top: 25),
                       decoration: BoxDecoration(
-                        shape: BoxShape.circle,
+                        shape: BoxShape.rectangle,
                         image: DecorationImage(
                             image: AssetImage("assets/images/logo1.png"),
                             fit: BoxFit.fill),
-                      )),
+                      )
+                  ),
+                  SizedBox(height: 20),
                   Text(
                     "Raj Bhavani",
                     // auth.currentUser.,
                     // _auth.currentUser.displayName,
                     // user.displayName,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.black,
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                      color: Colors.white,
                     ),
                   ),
                   Text(
                     "Raj@gmail.com",
                     // _auth.currentUser.email,
                     // user.email,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w400,
                       fontSize: 15,
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                   )
                 ],
@@ -64,7 +68,7 @@ class DrawerHome extends StatelessWidget {
             leading: Icon(Icons.person),
             title: Text(
               "Profile",
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 fontSize: 18,
               ),
             ),
@@ -77,7 +81,7 @@ class DrawerHome extends StatelessWidget {
             leading: Icon(Icons.share),
             title: Text(
               "Share",
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 fontSize: 18,
               ),
             ),
@@ -91,11 +95,13 @@ class DrawerHome extends StatelessWidget {
             leading: Icon(Icons.arrow_back),
             title: Text(
               "Logout",
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 fontSize: 18,
               ),
             ),
-            onTap: () {logOut().whenComplete(() => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Login(),), (route) => false));},
+            onTap: () {
+              logOut().whenComplete(() => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Login(),), (route) => false));
+            },
           ),
         ],
       ),

@@ -1,11 +1,10 @@
+import 'package:e_learning/HomeScreen.dart';
 import 'package:e_learning/Onbording_screen.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'CoursePage.dart';
-
 import 'login_signup/login.dart';
 
 int? isViewed;
@@ -58,16 +57,29 @@ class _SplashScreenState extends State<SplashScreen>
 
     _animation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        isViewed != 0
-            ? Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => Onbording_screen()))
-            : Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Login()));
+        // isViewed != 0
+        //     ? Navigator.pushReplacement(context,
+        //         MaterialPageRoute(builder: (context) => Onbording_screen()))
+        //     : Navigator.pushReplacement(
+        //         context, MaterialPageRoute(builder: (context) => HomeScreen()));
+
+        if(isViewed != 0){
+          Navigator.pushReplacement(context,
+                 MaterialPageRoute(builder: (context) => Onbording_screen()));
+        }
+        else{
+          if(FirebaseAuth.instance.currentUser == null){
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), (route) => false);
+          }
+          else{
+            Navigator.pushReplacement(
+                 context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          }
+        }
       } else if (status == AnimationStatus.dismissed) {
         _animationController.forward();
       }
     });
-
     super.initState();
   }
 

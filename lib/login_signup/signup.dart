@@ -21,6 +21,7 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   bool isLoading = false;
+  bool isLoggedIn = false;
 
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
@@ -103,26 +104,6 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ),
                       ),
-                      // Container(
-                      //   width: 100,
-                      //   padding: const EdgeInsets.all(8),
-                      //   decoration: BoxDecoration(
-                      //     borderRadius: BorderRadius.all(Radius.circular(18)),
-                      //     border: Border.all(color: Colors.blueGrey),
-                      //   ),
-                      //   child: Image.asset('assets/images/facebook.png',
-                      //       height: 40, width: 40),
-                      // ),
-                      // Container(
-                      //   width: 100,
-                      //   padding: const EdgeInsets.all(8),
-                      //   decoration: BoxDecoration(
-                      //     borderRadius: BorderRadius.all(Radius.circular(18)),
-                      //     border: Border.all(color: Colors.blueGrey),
-                      //   ),
-                      //   child: Image.asset('assets/images/apple.png',
-                      //       height: 40, width: 40),
-                      // ),
                     ],
                   ),
                   SizedBox(height: 25),
@@ -181,6 +162,7 @@ class _SignUpState extends State<SignUp> {
                         SizedBox(height: 20),
                         TextFormField(
                           controller: _password,
+                          obscureText: true,
                           validator: MultiValidator([
                             RequiredValidator(errorText: "Required"),
                             MinLengthValidator(6,
@@ -216,7 +198,7 @@ class _SignUpState extends State<SignUp> {
                           _email.text.isNotEmpty &&
                           _password.text.isNotEmpty) {
                         setState(() {
-                          isLoading = true;
+                          isLoggedIn= true;
                         });
 
                         SignUpUser(_name.text, _email.text, _password.text)
@@ -285,7 +267,7 @@ class _SignUpState extends State<SignUp> {
                           } else {
                             //print("Sign up failed");
                             setState(() {
-                              isLoading = false;
+                              isLoggedIn = false;
                             });
                             showDialog(
                                 barrierDismissible: false,
