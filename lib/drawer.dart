@@ -12,6 +12,7 @@ class DrawerHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final user = FirebaseAuth.instance.currentUser;
 
     return Drawer(

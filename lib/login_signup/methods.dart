@@ -83,10 +83,10 @@ Future<bool?> loginUser(String email, String password) async {
   //   return null;
   // }
 }
-
 Future<void> logOut() async {
   await FirebaseAuth.instance.signOut();
   await googleSignIn.signOut();
+
 
 }
 
