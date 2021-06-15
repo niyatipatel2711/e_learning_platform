@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Text(
                 "What do you \nwant to \nlearn Today ?",
                 style: TextStyle(
-                    fontSize: 35, fontWeight: FontWeight.w800, height: 1.2,
+                    fontSize: 30, fontWeight: FontWeight.w800, height: 1.2,
                     color: Color(0xff0D1333)),
               ),
               SizedBox(
@@ -83,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * .4,
+                        height: MediaQuery.of(context).size.height*.6,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

@@ -1,3 +1,4 @@
+import 'package:e_learning/HomeScreen.dart';
 import 'package:e_learning/constants.dart';
 import 'package:e_learning/login_signup/login.dart';
 import 'package:e_learning/login_signup/methods.dart';
@@ -85,7 +86,8 @@ class _SignUpState extends State<SignUp> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       GestureDetector(
-                        onTap: () => signInWithGoogle().whenComplete(() => HomePage()),
+                        onTap: () =>
+                            signInWithGoogle().whenComplete(() => HomePage()),
                         child: Container(
                           width: 100,
                           padding: const EdgeInsets.all(8),
@@ -218,7 +220,7 @@ class _SignUpState extends State<SignUp> {
                         });
 
                         SignUpUser(_name.text, _email.text, _password.text)
-                            .then((user) {
+                            .then((user) async {
                           if (user != null) {
                             setState(() {
                               isLoading = false;
@@ -264,7 +266,13 @@ class _SignUpState extends State<SignUp> {
                                                     onPressed: () {
                                                       Navigator.of(context)
                                                           .pop();
-                                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(),));
+                                                      Navigator.pushReplacement(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    HomeScreen(),
+                                                          ));
                                                     },
                                                     child: Text('Ok'))
                                               ]),

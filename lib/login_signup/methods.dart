@@ -73,16 +73,15 @@ Future<bool?> loginUser(String email, String password) async {
   //   return null;
   // }
 }
-
 Future<void> logOut() async {
 
   await FirebaseAuth.instance.signOut();
 
   User? user = auth.currentUser;
   
-  if(user!.providerData[0].providerId == 'google.com'){
-    await googleSignIn.disconnect();
-  }
+  // if(user!.providerData[0].providerId == 'google.com'){
+  //   await googleSignIn.disconnect();
+  // }
   // await auth.signOut();
   // return Future.value(true);
 }

@@ -1,6 +1,6 @@
 import 'package:e_learning/HomeScreen.dart';
-import 'package:e_learning/Onbording_screen.dart';
 import 'package:e_learning/login_signup/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:ui';
@@ -37,6 +37,7 @@ class DrawerHome extends StatelessWidget {
                       )),
                   Text(
                     "Raj Bhavani",
+                    // auth.currentUser.,
                     // _auth.currentUser.displayName,
                     // user.displayName,
                     style: TextStyle(
