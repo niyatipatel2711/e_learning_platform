@@ -88,7 +88,7 @@ class _SignUpState extends State<SignUp> {
                     children: <Widget>[
                       GestureDetector(
                         onTap: () =>
-                            signInWithGoogle().whenComplete(() => HomePage()),
+                            signInWithGoogle().whenComplete(() => HomeScreen()),
                         child: Container(
                           width: 100,
                           padding: const EdgeInsets.all(8),
