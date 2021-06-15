@@ -1,5 +1,6 @@
 import 'package:e_learning/HomeScreen.dart';
 import 'package:e_learning/login_signup/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -40,6 +41,7 @@ class DrawerHome extends StatelessWidget {
                   SizedBox(height: 20),
                   Text(
                     "Raj Bhavani",
+                    // auth.currentUser.,
                     // _auth.currentUser.displayName,
                     // user.displayName,
                     style: GoogleFonts.poppins(

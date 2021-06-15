@@ -86,7 +86,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * .42,
+                        width: MediaQuery.of(context).size.width * .4,
+                        height: MediaQuery.of(context).size.height*.65,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -150,6 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Container Courseswidget(String catagory, String title, String img,
       Color categorycolor, Color bgColor) {
     return Container(
+      
       padding: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
       decoration: BoxDecoration(
           color: bgColor, borderRadius: BorderRadius.all(Radius.circular(20))),

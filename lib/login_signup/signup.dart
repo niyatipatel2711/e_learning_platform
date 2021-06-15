@@ -87,7 +87,8 @@ class _SignUpState extends State<SignUp> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       GestureDetector(
-                        onTap: () => signInWithGoogle().whenComplete(() => HomePage()),
+                        onTap: () =>
+                            signInWithGoogle().whenComplete(() => HomePage()),
                         child: Container(
                           width: 100,
                           padding: const EdgeInsets.all(8),
@@ -201,7 +202,7 @@ class _SignUpState extends State<SignUp> {
                         });
 
                         SignUpUser(_name.text, _email.text, _password.text)
-                            .then((user) {
+                            .then((user) async {
                           if (user != null) {
                             setState(() {
                               isLoading = false;
@@ -248,6 +249,14 @@ class _SignUpState extends State<SignUp> {
                                                       Navigator.of(context)
                                                           .pop();
                                                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen(),));
+=======
+                                                      Navigator.pushReplacement(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    HomeScreen(),
+                                                          ));
                                                     },
                                                     child: Text('Ok'))
                                               ]),
