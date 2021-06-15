@@ -91,21 +91,26 @@ Future<void> logOut() async {
 }
 
 Future<bool?> signInWithGoogle() async {
-  final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-
-  if (googleSignInAccount != null) {
-    final GoogleSignInAuthentication googleAuth =
-        await googleSignInAccount.authentication;
-    final AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
-
-    UserCredential result = await auth.signInWithCredential(credential);
-
-    User? user = auth.currentUser;
-    user = result.user;
-
-    print(user!.uid);
-
-    return Future.value(true);
+  try {
+    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+    
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleAuth =
+            await googleSignInAccount.authentication;
+            
+        final AuthCredential credential = GoogleAuthProvider.credential(
+            idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+      
+        UserCredential result = await auth.signInWithCredential(credential);
+      
+        User? user = auth.currentUser;
+        user = result.user;
+      
+        print(user!.uid);
+      
+        return Future.value(true);
+      }
+  } on PlatformException catch (e) {
+      print(e);
   }
 }
