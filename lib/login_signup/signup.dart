@@ -1,3 +1,4 @@
+import 'package:e_learning/HomeScreen.dart';
 import 'package:e_learning/constants.dart';
 import 'package:e_learning/login_signup/login.dart';
 import 'package:e_learning/login_signup/methods.dart';
@@ -246,7 +247,7 @@ class _SignUpState extends State<SignUp> {
                                                     onPressed: () {
                                                       Navigator.of(context)
                                                           .pop();
-                                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(),));
+                                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen(),));
                                                     },
                                                     child: Text('Ok'))
                                               ]),
@@ -314,6 +315,47 @@ class _SignUpState extends State<SignUp> {
                         });
                       } else {
                         print("Please enter fields.");
+                        showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (BuildContext context){
+                              return Dialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(32),),
+                                ),
+                                elevation: 8,
+                                child: Container(
+                                  height: 200,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Center(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          // Image.asset('assets/images/failed.png', height: 40, width: 40,),
+                                          SizedBox(height: 20,),
+                                          Text(
+                                            'Please enter details correctly!',
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 18,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          SizedBox(height: 20),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            }, 
+                                            child: Text('Ok')
+                                          )
+                                      ]),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            });
                       }
                     },
                     child: Container(

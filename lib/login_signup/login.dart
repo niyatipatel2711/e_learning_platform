@@ -208,6 +208,47 @@ class _LoginState extends State<Login> {
                           });
                         } else {
                           print("Please enter details correctly.");
+                          showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (BuildContext context){
+                              return Dialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(32),),
+                                ),
+                                elevation: 8,
+                                child: Container(
+                                  height: 200,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Center(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          // Image.asset('assets/images/failed.png', height: 40, width: 40,),
+                                          SizedBox(height: 20,),
+                                          Text(
+                                            'Please enter details correctly!',
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 18,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          SizedBox(height: 20),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            }, 
+                                            child: Text('Ok')
+                                          )
+                                      ]),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            });
                         }
                       },
                       child: Container(
