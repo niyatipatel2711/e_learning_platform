@@ -12,7 +12,7 @@ class DrawerHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+
     final user = FirebaseAuth.instance.currentUser;
 
     return Drawer(
@@ -31,9 +31,10 @@ class DrawerHome extends StatelessWidget {
             child: Center(
               child: Column(
                 children: [
+                  SizedBox(height: 20),
                   Container(
                       width: 200,
-                      height: 80,
+                      height: 60,
                       margin: EdgeInsets.only(top: 25),
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
@@ -45,7 +46,7 @@ class DrawerHome extends StatelessWidget {
                   SizedBox(height: 20),
                   Text(
                     user!.displayName.toString(),
-                    // _auth.currentUser.displayName,
+                    //auth.currentUser!.displayName.toString(),
                     // user.displayName,
                     style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w500,
@@ -55,7 +56,7 @@ class DrawerHome extends StatelessWidget {
                   ),
                   Text(
                     user.email.toString(),
-                    // _auth.currentUser.email,
+                    //auth.currentUser!.email.toString(),
                     // user.email,
                     style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w400,
