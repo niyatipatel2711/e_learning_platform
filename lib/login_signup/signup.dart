@@ -7,8 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../homepage.dart';
-
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -88,7 +86,7 @@ class _SignUpState extends State<SignUp> {
                     children: <Widget>[
                       GestureDetector(
                         onTap: () =>
-                            signInWithGoogle().whenComplete(() => HomePage()),
+                            signInWithGoogle().whenComplete(() => HomeScreen()),
                         child: Container(
                           width: 100,
                           padding: const EdgeInsets.all(8),
@@ -193,7 +191,6 @@ class _SignUpState extends State<SignUp> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      //SignUpUser(_name.text, _email.text, _password.text).whenComplete(() => HomePage());
                       if (_name.text.isNotEmpty &&
                           _email.text.isNotEmpty &&
                           _password.text.isNotEmpty) {
