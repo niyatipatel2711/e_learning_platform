@@ -7,8 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../homepage.dart';
-
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -193,7 +191,6 @@ class _SignUpState extends State<SignUp> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      //SignUpUser(_name.text, _email.text, _password.text).whenComplete(() => HomePage());
                       if (_name.text.isNotEmpty &&
                           _email.text.isNotEmpty &&
                           _password.text.isNotEmpty) {
