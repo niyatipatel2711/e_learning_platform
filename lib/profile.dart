@@ -7,19 +7,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'HomeScreen.dart';
 import 'constants.dart';
 
-final user = FirebaseAuth.instance.currentUser;
+//final user = FirebaseAuth.instance.currentUser;
 //https://firebase.google.com/docs/auth/unity/manage-users
 
-String profileURI = 'https://www.flaticon.com/collections/MTk5MTI3ODU=';
-
-//Uri profileURI = Uri.parse('https://www.flaticon.com/collections/MTk5MTI3ODU=');
+String profileURI = 'https://raw.githubusercontent.com/niyatipatel2711/e_learning_platform/master/assets/images/user.png';
+late String email, photoURL;
 
   _checkForProfile(){
-    if(user!.photoURL.toString().isEmpty){
-      return false;
+    if(FirebaseAuth.instance.currentUser!.photoURL != null){
+      return true;
     }
     else{
-      return true;
+      return false;
     }
   }
 
@@ -39,11 +38,20 @@ class _ProfileState extends State<Profile> {
   bool hidePassword1 = true;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   
-  String _display_name = user!.displayName.toString();
+  String _display_name = FirebaseAuth.instance.currentUser!.displayName.toString();
+  //String _email = user!.email.toString();
 
    _onBackPressed() {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    }
+
+    @override
+    void initState() {
+      email = FirebaseAuth.instance.currentUser!.email.toString();
+      photoURL = FirebaseAuth.instance.currentUser!.photoURL.toString();
+
+      super.initState();
     }
 
   
@@ -149,7 +157,7 @@ class _ProfileState extends State<Profile> {
                         Flexible(
                           child: TextFormField(
                             readOnly: true,
-                            initialValue: user!.email.toString(),
+                            initialValue: email,
                             style: GoogleFonts.poppins(color: blue),
                             decoration: InputDecoration(
                               filled: true,
@@ -286,8 +294,8 @@ class _ProfileState extends State<Profile> {
                     child: ElevatedButton(
                         onPressed: () {
                           if(_name.text != _display_name || _confirmPassword.text.isNotEmpty){
-                            user!.updateDisplayName(_name.text);
-                            user!.updatePassword(_confirmPassword.text);
+                            FirebaseAuth.instance.currentUser!.updateDisplayName(_name.text);
+                            FirebaseAuth.instance.currentUser!.updatePassword(_confirmPassword.text);
                             showDialog(
                                   barrierDismissible: false,
                                   context: context, 
@@ -320,7 +328,12 @@ class _ProfileState extends State<Profile> {
                                               ElevatedButton(
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
-                                                  //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen(),));
+                                                  FirebaseAuth.instance.currentUser!.reload();
+                                                  setState(() {
+                                                    // _name.text = FirebaseAuth.instance.currentUser!.displayName.toString();
+                                                    photoURL = FirebaseAuth.instance.currentUser!.photoURL.toString();
+                                                    email = FirebaseAuth.instance.currentUser!.email.toString();
+                                                  });
                                                 }, 
                                                 child: Text('Ok')
                                               )
@@ -371,7 +384,8 @@ class ProfilePic extends StatelessWidget {
       child: Stack(clipBehavior: Clip.none, fit: StackFit.expand, children: [
         CircleAvatar(
           //backgroundImage: NetworkImage(user!.photoURL.toString(),),
-          backgroundImage: NetworkImage(_checkForProfile() ? user!.photoURL.toString() : profileURI),
+          backgroundImage: _checkForProfile() ? NetworkImage(photoURL) : NetworkImage(profileURI),
+          backgroundColor: Colors.transparent,
         ),
         Positioned(
           right: -12,
