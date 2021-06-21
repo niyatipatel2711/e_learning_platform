@@ -1,3 +1,4 @@
+import 'package:e_learning/AdminStart.dart';
 import 'package:e_learning/login_signup/login.dart';
 import 'package:e_learning/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -107,6 +108,19 @@ class DrawerHome extends StatelessWidget {
                         builder: (context) => Login(),
                       ),
                       (route) => false));
+            },
+          ),
+           ListTile(
+            leading: Icon(Icons.pages_outlined),
+            title: Text(
+              "Tutor",
+              style: GoogleFonts.poppins(
+                fontSize: 18,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AdminStart()));
             },
           ),
         ],
