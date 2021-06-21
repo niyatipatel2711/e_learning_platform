@@ -13,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+     final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: AssetImage('assets/images/img1.png'),
+                  image:NetworkImage(user!.photoURL.toString()),
                 ),
               ),
             ),
@@ -87,8 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * .4,
-                        height: MediaQuery.of(context).size.height*.65,
+                        width: MediaQuery.of(context).size.width * .42,
+                        // height: MediaQuery.of(context).size.height*.65,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -155,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Color categorycolor, Color bgColor) {
     return Container(
       
-      padding: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
+      padding: EdgeInsets.only(top:5, left: 5, right: 5, bottom:2.5),
       decoration: BoxDecoration(
           color: bgColor, borderRadius: BorderRadius.all(Radius.circular(20))),
       child: InkWell(

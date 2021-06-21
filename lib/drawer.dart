@@ -9,17 +9,15 @@ import 'dart:ui';
 import 'login_signup/methods.dart';
 
 class DrawerHome extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     final user = FirebaseAuth.instance.currentUser;
 
     return Drawer(
       child: Column(
         children: [
           Container(
-            height: 200,
+            height: 225,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(50),
@@ -33,21 +31,20 @@ class DrawerHome extends StatelessWidget {
                 children: [
                   SizedBox(height: 20),
                   Container(
-                      width: 200,
-                      height: 60,
-                      margin: EdgeInsets.only(top: 25),
+                      width: 80,
+                      height: 80,
+                      margin: EdgeInsets.only(top: 20),
                       decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
+                        shape: BoxShape.circle,
                         image: DecorationImage(
-                            image: AssetImage("assets/images/logo1.png"),
+                            image: NetworkImage(user!.photoURL.toString()),
                             fit: BoxFit.fill),
-                      )
-                  ),
-                  SizedBox(height: 20),
+                      )),
+                      
+                  SizedBox(height:5),
                   Text(
-                    user!.displayName.toString(),
+                    user.displayName.toString(),
                     //auth.currentUser!.displayName.toString(),
-                    // user.displayName,
                     style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w500,
                       fontSize: 18,
@@ -104,7 +101,12 @@ class DrawerHome extends StatelessWidget {
               ),
             ),
             onTap: () {
-              logOut().whenComplete(() => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Login(),), (route) => false));
+              logOut()
+                  .whenComplete(() => Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => Login(),
+                      ),
+                      (route) => false));
             },
           ),
         ],
