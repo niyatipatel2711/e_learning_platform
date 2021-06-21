@@ -20,6 +20,7 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _password = TextEditingController();
   bool isLoading = false;
   bool isLoggedIn = false;
+  bool hidePassword = true;
 
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
@@ -160,7 +161,7 @@ class _SignUpState extends State<SignUp> {
                         SizedBox(height: 20),
                         TextFormField(
                           controller: _password,
-                          obscureText: true,
+                          obscureText: hidePassword,
                           validator: MultiValidator([
                             RequiredValidator(errorText: "Required"),
                             MinLengthValidator(6,
@@ -173,7 +174,15 @@ class _SignUpState extends State<SignUp> {
                           decoration: InputDecoration(
                             filled: true,
                             hintText: 'Password',
-                            suffixText: 'Forgot?',
+                            suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              hidePassword = !hidePassword;
+                            });
+                          },
+                          icon: Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
+                          color: Colors.blueGrey[300],
+                        ),
                             fillColor: Colors.transparent,
                             hintStyle:
                                 GoogleFonts.poppins(color: Colors.blueGrey),

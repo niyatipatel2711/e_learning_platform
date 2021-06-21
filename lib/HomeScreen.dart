@@ -1,5 +1,5 @@
 import 'package:e_learning/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:e_learning/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui';
@@ -132,7 +132,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Profile()));
+                      },
                       icon: Icon(
                         Icons.account_circle,
                         color: Color(0xffdc2430).withOpacity(0.5),

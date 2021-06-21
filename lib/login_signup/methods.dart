@@ -10,7 +10,9 @@ Future<bool?> SignUpUser(String name, String email, String password) async {
   try {
     // ignore: unused_local_variable
     UserCredential result = await auth.createUserWithEmailAndPassword(email: email, password: password);
-    // User? user = result.user;
+    //User? user = result.user;
+    User user = auth.currentUser!; 
+    user.updateDisplayName(name);
     return Future.value(true);
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
@@ -83,6 +85,7 @@ Future<bool?> loginUser(String email, String password) async {
   //   return null;
   // }
 }
+
 Future<void> logOut() async {
   await FirebaseAuth.instance.signOut();
   await googleSignIn.signOut();
