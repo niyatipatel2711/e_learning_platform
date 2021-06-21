@@ -90,7 +90,7 @@ class _CoursePageState extends State<CoursePage> {
                     style: GoogleFonts.poppins(fontSize: 23, fontWeight: FontWeight.w600),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10,),
+                    
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                       color: Color(0xffd3defa),
@@ -98,7 +98,7 @@ class _CoursePageState extends State<CoursePage> {
                     child: Row(
                       children: [
                         Container(
-                          width: 35,
+                          width: 30,
                           child: IconButton(
                             onPressed: () {},
                             icon: Icon(Icons.timer),
@@ -106,9 +106,12 @@ class _CoursePageState extends State<CoursePage> {
                           ),
                         ),
                         SizedBox(width: 5),
-                        Text(
-                          "5 Hours, 07 Min",
-                          style: GoogleFonts.poppins(color: blue),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: Text(
+                            "5 Hours,07 Min",
+                            style: GoogleFonts.poppins(color: blue,fontSize: 12),
+                          ),
                         )
                       ],
                     ),
