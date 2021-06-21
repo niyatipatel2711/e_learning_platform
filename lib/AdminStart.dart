@@ -34,14 +34,14 @@ class _AdminStartState extends State<AdminStart> {
             child: Column(
               children: [
                 SvgPicture.asset('assets/tutor.svg', height: 280, width: 280),
-                SizedBox(height:20),
+                SizedBox(height: 30),
                 Text(
                   'Start Tutoring',
                   style: GoogleFonts.poppins(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    //color: Colors.white,
-                    color: darkBlue
+                    fontSize: 35,
+                    fontWeight: FontWeight.w600,
+                    height: 1.2,
+                    color: darkBlue,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -51,7 +51,6 @@ class _AdminStartState extends State<AdminStart> {
                   style: GoogleFonts.poppins(
                     fontSize: 25,
                     fontWeight: FontWeight.w400,
-                    //color: Colors.white,
                     color: darkBlue
                   ),
                   textAlign: TextAlign.center,
