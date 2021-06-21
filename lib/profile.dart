@@ -387,30 +387,30 @@ class ProfilePic extends StatelessWidget {
           backgroundImage: _checkForProfile() ? NetworkImage(photoURL) : NetworkImage(profileURI),
           backgroundColor: Colors.transparent,
         ),
-        Positioned(
-          right: -12,
-          bottom: 0,
-          child: SizedBox(
-            height: 46,
-            width: 46,
-            child: Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Color(0xFFF5F6F9)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
-                          side: BorderSide(color: Colors.white))),
-                ),
-                onPressed: () {
+        // Positioned(
+        //   right: -12,
+        //   bottom: 0,
+        //   child: SizedBox(
+        //     height: 46,
+        //     width: 46,
+        //     child: Padding(
+        //       padding: const EdgeInsets.all(0.0),
+        //       child: ElevatedButton(
+        //         style: ButtonStyle(
+        //           backgroundColor: MaterialStateProperty.all(Color(0xFFF5F6F9)),
+        //           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        //               RoundedRectangleBorder(
+        //                   borderRadius: BorderRadius.circular(50),
+        //                   side: BorderSide(color: Colors.white))),
+        //         ),
+        //         onPressed: () {
 
-                },
-                child: SvgPicture.asset('assets/camera.svg'),
-              ),
-            ),
-          ),
-        ),
+        //         },
+        //         child: SvgPicture.asset('assets/camera.svg'),
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ]),
     );
   }
