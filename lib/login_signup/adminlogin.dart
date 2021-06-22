@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:e_learning/admin/adminhomescreen.dart';
@@ -8,7 +7,6 @@ import "package:flutter/material.dart";
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 
 class Adminlogin extends StatefulWidget {
   const Adminlogin({Key? key}) : super(key: key);
@@ -29,9 +27,8 @@ class _AdminloginState extends State<Adminlogin> {
       snapshot.docChanges.forEach((result) {
         if (result.doc["id"] != _adminid.text.trim()) {
           // Scaffold.of(context);
-              // ignore: deprecated_member_use
-              // .showSnackBar(SnackBar(content: Text(" ID is not correct ")));
-          
+          // ignore: deprecated_member_use
+          // .showSnackBar(SnackBar(content: Text(" ID is not correct ")));
           showDialog(
               barrierDismissible: false,
               context: context,
@@ -88,15 +85,15 @@ class _AdminloginState extends State<Adminlogin> {
           // Scaffold.of(context).showSnackBar(
           //     SnackBar(content: Text("Welcome to ADMIN  part")));
 
-              setState(() {
-                _adminid.text= "" ;
-                _adminpass.text ="";
-              });
+          setState(() {
+            _adminid.text = "";
+            _adminpass.text = "";
+          });
 
-              Route route = MaterialPageRoute(builder: (e)=> AdminHomeScreen());
-              Navigator.pushReplacement(context, route);
+          Route route = MaterialPageRoute(builder: (e) => AdminHomeScreen());
+          Navigator.pushReplacement(context, route);
 
-              showDialog(
+          showDialog(
               barrierDismissible: false,
               context: context,
               builder: (BuildContext context) {
@@ -143,9 +140,6 @@ class _AdminloginState extends State<Adminlogin> {
                   ),
                 );
               });
-
-
-
         }
       });
     });
@@ -239,58 +233,54 @@ class _AdminloginState extends State<Adminlogin> {
                     SizedBox(height: 40),
                     InkWell(
                       onTap: () {
-                        _adminid.text.isNotEmpty && _adminpass.text.isNotEmpty?
-                        loginAdmin():
-
-                          showDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Dialog(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(32),
-                                    ),
-                                  ),
-                                  elevation: 8,
-                                  child: Container(
-                                    height: 200,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: Center(
-                                        child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              // Image.asset('assets/images/failed.png', height: 40, width: 40,),
-                                              SizedBox(
-                                                height: 20,
-                                              ),
-                                              Text(
-                                                'Please enter details correctly!',
-                                                style: GoogleFonts.poppins(
-                                                  fontSize: 18,
-                                                  color: Colors.red,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              SizedBox(height: 20),
-                                              ElevatedButton(
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: Text('Ok'))
-                                            ]),
+                        _adminid.text.isNotEmpty && _adminpass.text.isNotEmpty
+                            ? loginAdmin()
+                            : showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(32),
                                       ),
                                     ),
-                                  ),
-                                );
-                              });
-                        
-                        
-                        
-                        
+                                    elevation: 8,
+                                    child: Container(
+                                      height: 200,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(20.0),
+                                        child: Center(
+                                          child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                // Image.asset('assets/images/failed.png', height: 40, width: 40,),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                Text(
+                                                  'Please enter details correctly!',
+                                                  style: GoogleFonts.poppins(
+                                                    fontSize: 18,
+                                                    color: Colors.red,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                SizedBox(height: 20),
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: Text('Ok'))
+                                              ]),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                });
                       },
                       child: Container(
                         height: 50,
@@ -311,6 +301,21 @@ class _AdminloginState extends State<Adminlogin> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 20,),
+
+                    InkWell(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        child: Text("I Am not Admin",style: GoogleFonts.poppins(
+                                      fontSize: 15,
+                                      color: blue,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
