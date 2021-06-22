@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: blue,
           ),
         ),
+        
         iconTheme: IconThemeData(color: blue),
         backgroundColor: Colors.transparent,
         elevation: 0,

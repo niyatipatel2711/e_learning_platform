@@ -36,7 +36,8 @@ class _ProfileState extends State<Profile> {
   bool hidePassword = true;
   bool hidePassword1 = true;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  
+
+
   String _display_name = FirebaseAuth.instance.currentUser!.displayName.toString();
   //String _email = user!.email.toString();
 
@@ -112,10 +113,11 @@ class _ProfileState extends State<Profile> {
                         ),
                         SizedBox(width: 20),
                         Flexible(
+                        
                           child: TextFormField(
                             controller: _name,
                             validator: RequiredValidator(errorText: 'Required'),
-                            //initialValue: user!.displayName.toString(),
+                            // initialValue: user!.displayName.toString(),
                             style: GoogleFonts.poppins(color: blue),
                             decoration: InputDecoration(
                               filled: true,
