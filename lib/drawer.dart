@@ -1,5 +1,6 @@
-import 'package:e_learning/HomeScreen.dart';
+import 'package:e_learning/AdminStart.dart';
 import 'package:e_learning/login_signup/login.dart';
+import 'package:e_learning/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -75,7 +76,7 @@ class DrawerHome extends StatelessWidget {
             ),
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()));
+                  MaterialPageRoute(builder: (context) => Profile()));
             },
           ),
           ListTile(
@@ -107,6 +108,19 @@ class DrawerHome extends StatelessWidget {
                         builder: (context) => Login(),
                       ),
                       (route) => false));
+            },
+          ),
+           ListTile(
+            leading: Icon(Icons.pages_outlined),
+            title: Text(
+              "Tutor",
+              style: GoogleFonts.poppins(
+                fontSize: 18,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AdminStart()));
             },
           ),
         ],
