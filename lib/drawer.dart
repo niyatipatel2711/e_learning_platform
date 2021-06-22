@@ -110,19 +110,6 @@ class DrawerHome extends StatelessWidget {
                       (route) => false));
             },
           ),
-           ListTile(
-            leading: Icon(Icons.pages_outlined),
-            title: Text(
-              "Tutor",
-              style: GoogleFonts.poppins(
-                fontSize: 18,
-              ),
-            ),
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AdminStart()));
-            },
-          ),
         ],
       ),
     );

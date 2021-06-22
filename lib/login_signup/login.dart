@@ -1,3 +1,4 @@
+import 'package:e_learning/AdminStart.dart';
 import 'package:e_learning/HomeScreen.dart';
 import 'package:e_learning/constants.dart';
 import 'package:e_learning/login_signup/adminlogin.dart';
@@ -476,7 +477,7 @@ class _LoginState extends State<Login> {
                                   Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Adminlogin()));
+                                    builder: (context) => AdminStart()));
                                 },
                                 child: Container(
                                   width: 100,

@@ -168,7 +168,8 @@ class _SignUpState extends State<SignUp> {
                                 errorText:
                                     'Should be atleast 6 characters long.'),
                             MaxLengthValidator(15,
-                                errorText: 'Should not exceed 15 characters.')
+                                errorText: 'Should not exceed 15 characters.'),
+                            PatternValidator(r'(?=.*?[#?!@$%^&*-])', errorText: 'passwords must have at least one special character'),
                           ]),
                           style: GoogleFonts.poppins(color: blue),
                           decoration: InputDecoration(

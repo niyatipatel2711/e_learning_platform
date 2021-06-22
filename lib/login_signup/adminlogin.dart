@@ -164,7 +164,7 @@ class _AdminloginState extends State<Adminlogin> {
               )),
               SizedBox(height: 20),
               Text(
-                'Login(Admin)',
+                'Login',
                 style: GoogleFonts.poppins(
                   fontSize: 35,
                   color: darkBlue,
@@ -227,7 +227,8 @@ class _AdminloginState extends State<Adminlogin> {
                         MinLengthValidator(6,
                             errorText: 'Should be atleast 6 characters long.'),
                         MaxLengthValidator(15,
-                            errorText: 'Should not exceed 15 characters.')
+                            errorText: 'Should not exceed 15 characters.'),
+                            
                       ]),
                     ),
                     SizedBox(height: 40),
