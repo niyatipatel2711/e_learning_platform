@@ -97,7 +97,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
                     ),
                   ),
                   Container(
-                    height: 550,
+                    height: 500,
                     child: PageView(
                       physics: ClampingScrollPhysics(),
                       controller: _pageController,
@@ -114,7 +114,8 @@ class Onbording_screen_State extends State<Onbording_screen> {
                             children: [
                               Center(
                                 child: SvgPicture.asset('assets/connect.svg',
-                                    height: 300, width: 300),
+                                    height:MediaQuery.of(context).size.height *.3, width: 300
+                                    ),
                               ),
                               SizedBox(height: 20.0),
                               Text(
@@ -146,7 +147,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
                             children: [
                               Center(
                                 child: SvgPicture.asset('assets/queans.svg',
-                                    height: 300, width: 300),
+                                     height:MediaQuery.of(context).size.height *.3, width: 300),
                               ),
                               SizedBox(height: 20.0),
                               Text(
@@ -178,7 +179,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
                             children: [
                               Center(
                                 child: SvgPicture.asset('assets/enroll.svg',
-                                    height: 300, width: 300),
+                                    height:MediaQuery.of(context).size.height *.3, width: 300),
                               ),
                               SizedBox(height: 20.0),
                               Text(
@@ -206,7 +207,7 @@ class Onbording_screen_State extends State<Onbording_screen> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  // SizedBox(height: 0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: _buildPageIndicator(),
