@@ -340,10 +340,78 @@ class _ProfileState extends State<Profile> {
                         BoxConstraints.tightFor(width: 200, height: 50),
                     child: ElevatedButton(
                         onPressed: () {
-                          if (_name.text != _display_name ||
-                              _confirmPassword.text.isNotEmpty) {
+                          if (_name.text.trim() != _display_name ||
+                              _confirmPassword.text.trim().isNotEmpty) {
                             FirebaseAuth.instance.currentUser!
                                 .updateDisplayName(_name.text);
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(32),
+                                      ),
+                                    ),
+                                    elevation: 8,
+                                    child: Container(
+                                      height: 240,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(20.0),
+                                        child: Center(
+                                          child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  'assets/images/loginSuccess.png',
+                                                  height: 40,
+                                                  width: 40,
+                                                ),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                Text(
+                                                  'User profile has been updated!',
+                                                  style: GoogleFonts.poppins(
+                                                    fontSize: 20,
+                                                    color: Colors.green,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                SizedBox(height: 20),
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      FirebaseAuth
+                                                          .instance.currentUser!
+                                                          .reload();
+                                                      setState(() {
+                                                        // _name.text = FirebaseAuth.instance.currentUser!.displayName.toString();
+                                                        photoURL = FirebaseAuth
+                                                            .instance
+                                                            .currentUser!
+                                                            .photoURL
+                                                            .toString();
+                                                        email = FirebaseAuth
+                                                            .instance
+                                                            .currentUser!
+                                                            .email
+                                                            .toString();
+                                                      });
+                                                    },
+                                                    child: Text('Ok'))
+                                              ]),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                });
+                          }
+                          else if(_confirmPassword.text.trim().isNotEmpty){
                             FirebaseAuth.instance.currentUser!
                                 .updatePassword(_confirmPassword.text);
                             showDialog(
@@ -412,6 +480,7 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   );
                                 });
+                          
                           }
                         },
                         style: ButtonStyle(
