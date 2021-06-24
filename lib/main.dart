@@ -8,12 +8,14 @@ import 'CoursePage.dart';
 import 'login_signup/login.dart';
 
 int? isViewed;
+int? hasViewed;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   isViewed = prefs.getInt('onBoard');
+  hasViewed = prefs.getInt('Admin');
   runApp(MyApp());
 }
 

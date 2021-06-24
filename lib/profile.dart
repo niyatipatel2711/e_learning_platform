@@ -1,25 +1,29 @@
+import 'package:e_learning/admin/adminhomescreen.dart';
+import 'package:e_learning/login_signup/adminlogin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'AdminStart.dart';
 import 'HomeScreen.dart';
 import 'constants.dart';
+import 'main.dart';
 
 //final user = FirebaseAuth.instance.currentUser;
 //https://firebase.google.com/docs/auth/unity/manage-users
 
-String profileURI = 'https://raw.githubusercontent.com/niyatipatel2711/e_learning_platform/master/assets/images/user.png';
+String profileURI =
+    'https://raw.githubusercontent.com/niyatipatel2711/e_learning_platform/master/assets/images/user.png';
 late String email, photoURL;
 
-  _checkForProfile(){
-    if(FirebaseAuth.instance.currentUser!.photoURL != null){
-      return true;
-    }
-    else{
-      return false;
-    }
+_checkForProfile() {
+  if (FirebaseAuth.instance.currentUser!.photoURL != null) {
+    return true;
+  } else {
+    return false;
   }
+}
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -29,7 +33,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-
   TextEditingController _name = TextEditingController();
   TextEditingController _password = TextEditingController();
   TextEditingController _confirmPassword = TextEditingController();
@@ -37,30 +40,28 @@ class _ProfileState extends State<Profile> {
   bool hidePassword1 = true;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-
-  String _display_name = FirebaseAuth.instance.currentUser!.displayName.toString();
+  String _display_name =
+      FirebaseAuth.instance.currentUser!.displayName.toString();
   //String _email = user!.email.toString();
 
-   _onBackPressed() {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
-    }
+  _onBackPressed() {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => HomeScreen()));
+  }
 
-    @override
-    void initState() {
-      email = FirebaseAuth.instance.currentUser!.email.toString();
-      photoURL = FirebaseAuth.instance.currentUser!.photoURL.toString();
+  @override
+  void initState() {
+    email = FirebaseAuth.instance.currentUser!.email.toString();
+    photoURL = FirebaseAuth.instance.currentUser!.photoURL.toString();
 
-      super.initState();
-    }
+    super.initState();
+  }
 
-  
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
       onWillPop: () => _onBackPressed(),
-          child: Scaffold(
+      child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -84,13 +85,45 @@ class _ProfileState extends State<Profile> {
           child: Form(
             autovalidateMode: AutovalidateMode.onUserInteraction,
             key: formkey,
-                    child: Column(
+            child: Column(
               children: [
                 ProfilePic(),
                 SizedBox(height: 20),
+                InkWell(
+                  onTap: () {
+                    if (hasViewed != 0) {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AdminStart()));
+                    } else {
+                      if (FirebaseAuth.instance.currentUser == null) {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Adminlogin()),
+                            (route) => false);
+                      } else {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AdminHomeScreen()));
+                      }
+                    }
+                  },
+                  child: Text(
+                    'Become an instructor',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                      color: blue,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
                   child: Container(
                     height: 100,
                     padding: EdgeInsets.all(20),
@@ -113,7 +146,6 @@ class _ProfileState extends State<Profile> {
                         ),
                         SizedBox(width: 20),
                         Flexible(
-                        
                           child: TextFormField(
                             controller: _name,
                             validator: RequiredValidator(errorText: 'Required'),
@@ -132,8 +164,8 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
                   child: Container(
                     height: 80,
                     padding: EdgeInsets.all(20),
@@ -179,8 +211,8 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
                   child: Container(
                     height: 100,
                     padding: EdgeInsets.all(20),
@@ -216,20 +248,26 @@ class _ProfileState extends State<Profile> {
                                     hidePassword = !hidePassword;
                                   });
                                 },
-                                icon: Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
+                                icon: Icon(hidePassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
                                 color: pink.withOpacity(0.5),
                               ),
                               fillColor: Colors.transparent,
                               hintStyle: GoogleFonts.poppins(color: darkBlue),
                             ),
-                            validator: MultiValidator(
-                            [
+                            validator: MultiValidator([
                               RequiredValidator(errorText: "Required"),
-                              MinLengthValidator(6, errorText: 'Should be atleast 6 characters long.'),
-                              MaxLengthValidator(15, errorText: 'Should not exceed 15 characters.'),
-                              PatternValidator(r'(?=.*?[#?!@$%^&*-])', errorText: 'passwords must have at least one special character'),
-                            ]
-                          ),
+                              MinLengthValidator(6,
+                                  errorText:
+                                      'Should be atleast 6 characters long.'),
+                              MaxLengthValidator(15,
+                                  errorText:
+                                      'Should not exceed 15 characters.'),
+                              PatternValidator(r'(?=.*?[#?!@$%^&*-])',
+                                  errorText:
+                                      'passwords must have at least one special character'),
+                            ]),
                           ),
                         ),
                       ],
@@ -237,8 +275,8 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
                   child: Container(
                     height: 100,
                     padding: EdgeInsets.all(20),
@@ -274,36 +312,47 @@ class _ProfileState extends State<Profile> {
                                     hidePassword1 = !hidePassword1;
                                   });
                                 },
-                                icon: Icon(hidePassword1 ? Icons.visibility_off : Icons.visibility),
+                                icon: Icon(hidePassword1
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
                                 color: pink.withOpacity(0.5),
                               ),
                               fillColor: Colors.transparent,
                               hintStyle: GoogleFonts.poppins(color: darkBlue),
                             ),
-                            validator: (val) => MatchValidator(errorText: 'Passwords do not match').validateMatch(_confirmPassword.text, _password.text),
+                            validator: (val) => MatchValidator(
+                                    errorText: 'Passwords do not match')
+                                .validateMatch(
+                                    _confirmPassword.text, _password.text),
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: ConstrainedBox(
-                    constraints: BoxConstraints.tightFor(width: 200, height: 50),
+                    constraints:
+                        BoxConstraints.tightFor(width: 200, height: 50),
                     child: ElevatedButton(
                         onPressed: () {
-                          if(_name.text != _display_name || _confirmPassword.text.isNotEmpty){
-                            FirebaseAuth.instance.currentUser!.updateDisplayName(_name.text);
-                            FirebaseAuth.instance.currentUser!.updatePassword(_confirmPassword.text);
+                          if (_name.text.trim() != _display_name ||
+                              _confirmPassword.text.trim().isNotEmpty) {
+                            FirebaseAuth.instance.currentUser!
+                                .updateDisplayName(_name.text);
                             showDialog(
-                                  barrierDismissible: false,
-                                  context: context, 
-                                  builder: (BuildContext context){
-                                    return Dialog(
-                                      shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(32),),
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(32),
+                                      ),
                                     ),
                                     elevation: 8,
                                     child: Container(
@@ -312,44 +361,133 @@ class _ProfileState extends State<Profile> {
                                         padding: const EdgeInsets.all(20.0),
                                         child: Center(
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Image.asset('assets/images/loginSuccess.png', height: 40, width: 40,),
-                                              SizedBox(height: 20,),
-                                              Text(
-                                                'User profile has been updated!',
-                                                style: GoogleFonts.poppins(
-                                                  fontSize: 20,
-                                                  color: Colors.green,
-                                                  fontWeight: FontWeight.bold,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  'assets/images/loginSuccess.png',
+                                                  height: 40,
+                                                  width: 40,
                                                 ),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              SizedBox(height: 20),
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                  FirebaseAuth.instance.currentUser!.reload();
-                                                  setState(() {
-                                                    // _name.text = FirebaseAuth.instance.currentUser!.displayName.toString();
-                                                    photoURL = FirebaseAuth.instance.currentUser!.photoURL.toString();
-                                                    email = FirebaseAuth.instance.currentUser!.email.toString();
-                                                  });
-                                                }, 
-                                                child: Text('Ok')
-                                              )
-                                          ]),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                Text(
+                                                  'User profile has been updated!',
+                                                  style: GoogleFonts.poppins(
+                                                    fontSize: 20,
+                                                    color: Colors.green,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                SizedBox(height: 20),
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      FirebaseAuth
+                                                          .instance.currentUser!
+                                                          .reload();
+                                                      setState(() {
+                                                        // _name.text = FirebaseAuth.instance.currentUser!.displayName.toString();
+                                                        photoURL = FirebaseAuth
+                                                            .instance
+                                                            .currentUser!
+                                                            .photoURL
+                                                            .toString();
+                                                        email = FirebaseAuth
+                                                            .instance
+                                                            .currentUser!
+                                                            .email
+                                                            .toString();
+                                                      });
+                                                    },
+                                                    child: Text('Ok'))
+                                              ]),
                                         ),
                                       ),
                                     ),
-                                );
-                              });
+                                  );
+                                });
+                          }
+                          else if(_confirmPassword.text.trim().isNotEmpty){
+                            FirebaseAuth.instance.currentUser!
+                                .updatePassword(_confirmPassword.text);
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(32),
+                                      ),
+                                    ),
+                                    elevation: 8,
+                                    child: Container(
+                                      height: 240,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(20.0),
+                                        child: Center(
+                                          child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  'assets/images/loginSuccess.png',
+                                                  height: 40,
+                                                  width: 40,
+                                                ),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                Text(
+                                                  'User profile has been updated!',
+                                                  style: GoogleFonts.poppins(
+                                                    fontSize: 20,
+                                                    color: Colors.green,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                SizedBox(height: 20),
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      FirebaseAuth
+                                                          .instance.currentUser!
+                                                          .reload();
+                                                      setState(() {
+                                                        // _name.text = FirebaseAuth.instance.currentUser!.displayName.toString();
+                                                        photoURL = FirebaseAuth
+                                                            .instance
+                                                            .currentUser!
+                                                            .photoURL
+                                                            .toString();
+                                                        email = FirebaseAuth
+                                                            .instance
+                                                            .currentUser!
+                                                            .email
+                                                            .toString();
+                                                      });
+                                                    },
+                                                    child: Text('Ok'))
+                                              ]),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                });
+                          
                           }
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(blue),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           )),
                         ),
@@ -385,7 +523,9 @@ class ProfilePic extends StatelessWidget {
       child: Stack(clipBehavior: Clip.none, fit: StackFit.expand, children: [
         CircleAvatar(
           //backgroundImage: NetworkImage(user!.photoURL.toString(),),
-          backgroundImage: _checkForProfile() ? NetworkImage(photoURL) : NetworkImage(profileURI),
+          backgroundImage: _checkForProfile()
+              ? NetworkImage(photoURL)
+              : NetworkImage(profileURI),
           backgroundColor: Colors.transparent,
         ),
         // Positioned(
@@ -416,4 +556,3 @@ class ProfilePic extends StatelessWidget {
     );
   }
 }
-
