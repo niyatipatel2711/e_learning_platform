@@ -77,13 +77,58 @@ class _AdminloginState extends State<Adminlogin> {
                 );
               });
         } else if (result.doc["pass"] != _adminpass.text.trim()) {
-          // ignore: deprecated_member_use
-          Scaffold.of(context).showSnackBar(
-              SnackBar(content: Text(" password is not correct ")));
-        } else {
-          // ignore: deprecated_member_use
+         
           // Scaffold.of(context).showSnackBar(
-          //     SnackBar(content: Text("Welcome to ADMIN  part")));
+          //     SnackBar(content: Text(" password is not correct ")));
+          showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) {
+                return Dialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(32),
+                    ),
+                  ),
+                  elevation: 8,
+                  child: Container(
+                    height: 230,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Center(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/images/failed.png',
+                                height: 40,
+                                width: 40,
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                'Login Failed!',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 20,
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('Ok'))
+                            ]),
+                      ),
+                    ),
+                  ),
+                );
+              });
+        } else {
+      
 
           setState(() {
             _adminid.text = "";

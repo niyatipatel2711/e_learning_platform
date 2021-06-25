@@ -1,4 +1,3 @@
-import 'package:e_learning/AdminStart.dart';
 import 'package:e_learning/login_signup/login.dart';
 import 'package:e_learning/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
