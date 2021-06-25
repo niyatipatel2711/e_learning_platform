@@ -1,10 +1,10 @@
-import 'package:e_learning/login_signup/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui';
 
 import '../constants.dart';
+import 'createCourse.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
@@ -92,7 +92,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                         padding: EdgeInsets.only(
                             left: 30, top: 10, right: 20, bottom: 10),
                         onPressed: (){
-                          
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CreateCourse()));
                         },
                         color: pink,
                         shape: new RoundedRectangleBorder(
