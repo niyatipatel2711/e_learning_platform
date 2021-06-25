@@ -1,4 +1,3 @@
-import 'package:e_learning/login_signup/login.dart';
 import 'package:e_learning/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'dart:ui';
 
+import 'login_signup/login.dart';
 import 'login_signup/methods.dart';
 
 class DrawerHome extends StatelessWidget {

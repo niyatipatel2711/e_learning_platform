@@ -1,14 +1,13 @@
-import 'dart:io' show File;
 
-import 'package:e_learning/admin/uploadCourse.dart';
 import 'package:e_learning/login_signup/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'dart:ui';
 
 import '../constants.dart';
+import 'createCourse.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
@@ -101,66 +100,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       RaisedButton(
                         padding: EdgeInsets.only(
                             left: 30, top: 10, right: 20, bottom: 10),
-                        onPressed: () {
-                          Navigator.push(context,MaterialPageRoute(builder:(context)=> uploadCourse()));
-                          // showDialog(
-                          //     barrierDismissible: true,
-                          //     context: context,
-                          //     builder: (BuildContext context) {
-                          //       return AlertDialog(
-                          //         shape: RoundedRectangleBorder(
-                          //           borderRadius: BorderRadius.all(
-                          //             Radius.circular(32),
-                          //           ),
-                          //         ),
-                          //         scrollable: true,
-                          //         title: Text('Course'),
-                          //         content: Padding(
-                          //           padding: const EdgeInsets.all(8.0),
-                          //           child: Form(
-                          //             child: Column(
-                          //               children: <Widget>[
-                          //                 TextFormField(
-                          //                   decoration: InputDecoration(
-                          //                     labelText: 'Course Title',
-                          //                     icon: Icon(Icons.title_rounded),
-                          //                   ),
-                          //                 ),
-                          //                 SizedBox(
-                          //                   height: 10,
-                          //                 ),
-                          //                 Container(
-                          //                   child: _video == null
-                          //                       ? Text("Video not Loaded")
-                          //                       : Image.file(
-                          //                           _video!,
-                          //                           height: 250,
-                          //                           width: 350,
-                          //                         ),
-                          //                 ),
-                                          
-                          //                 RaisedButton(
-                          //                   onPressed: () {
-                          //                     getVideo();
-                          //                   },
-                                            
-                          //                   child: Text('Select Video'),
-                          //                 ),
-                                          
-                          //               ],
-                          //             ),
-                          //           ),
-                          //         ),
-                          //         actions: [
-                          //           // ignore: deprecated_member_use
-                          //           RaisedButton(
-                          //               child: Text("Submit"),
-                          //               onPressed: () {
-                          //                 // your code
-                          //               })
-                          //         ],
-                          //       );
-                          //     });
+
+                        onPressed: (){
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CreateCourse()));
+
                         },
                         color: pink,
                         shape: new RoundedRectangleBorder(

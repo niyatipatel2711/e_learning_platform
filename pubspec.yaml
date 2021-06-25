@@ -39,9 +39,14 @@ dependencies:
   cloud_firestore: ^2.2.2
   provider: ^5.0.0
   network: 
+
   image_picker: ^0.7.0
   video_player: ^0.10.2+1
-  file_picker:
+  
+
+  file_picker: 
+  firebase_storage: 
+
 
 dev_dependencies:
   flutter_test:

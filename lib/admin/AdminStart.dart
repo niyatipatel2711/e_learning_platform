@@ -1,13 +1,10 @@
 import 'dart:io';
-
 import 'package:e_learning/admin/adminhomescreen.dart';
 import 'package:e_learning/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'HomeScreen.dart';
 
 class AdminStart extends StatefulWidget {
   const AdminStart({Key? key}) : super(key: key);
