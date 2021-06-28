@@ -14,7 +14,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-     final user = FirebaseAuth.instance.currentUser;
+
+  String profileURI =
+    'https://raw.githubusercontent.com/niyatipatel2711/e_learning_platform/master/assets/images/user.png';
+
+  final user = FirebaseAuth.instance.currentUser;
+
+  _checkForProfile() {
+    if (FirebaseAuth.instance.currentUser!.photoURL != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image:NetworkImage(user!.photoURL.toString()),
+                  image: _checkForProfile()
+                    ? NetworkImage(user!.photoURL.toString())
+                    : NetworkImage(profileURI),
                 ),
               ),
             ),

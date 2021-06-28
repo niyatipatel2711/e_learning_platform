@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_learning/constants.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,23 +15,66 @@ class CreateCourse extends StatefulWidget {
 
 class _CreateCourseState extends State<CreateCourse> {
 
-  Future selectFiles() async{
-    FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: true, type: FileType.video);
-    if(result != null) {
-      List<File> files = result.paths.map((path) => File(path!)).toList();
+  FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
 
-    } else {
-      // User canceled the picker
-    }
+  List<UploadTask> uploadedTask = List.empty();
+
+  List<File> selectedFiles = List.empty();
+
+  uploadFiles(File file){
+    UploadTask task = _firebaseStorage.ref().child("videos/${DateTime.now().toString()}").putFile(file); 
+    return task;
+  } 
+
+  writeVideoUrlToFirebaseStorage(videoUrl){
+    _firebaseFirestore.collection("videos").add({"url": videoUrl}).whenComplete(() => print("$videoUrl is saved in firestore."));
   }
-  
-  Future uploadFiles() async {
 
+  saveVideoUrlToFirebase(UploadTask task){
+    task.snapshotEvents.listen((snapShot) { 
+      if(snapShot.state == TaskState.success){
+        snapShot.ref.getDownloadURL().then((videoUrl) => writeVideoUrlToFirebaseStorage(videoUrl));
+      }
+    });
+  }
+
+  Future<void> retrieveLostData() async {
+    
+  }
+
+  Future selectFiles() async{
+    try{
+      FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: true, type: FileType.video);
+
+      if(result!=null){
+        selectedFiles.clear();
+        result.files.forEach((selectedFile) {
+          File file = File('${selectedFile.path}');
+          selectedFiles.add(file);
+          // PlatformFile file = PlatformFile(name: selectedFile.name, path: selectedFile.path, size: selectedFile.size);
+          // selectedFiles.add(file);
+        });
+
+        selectedFiles.forEach((file) {
+          final UploadTask task  = uploadFiles(file);
+          saveVideoUrlToFirebase(task);
+          setState(() {
+            uploadedTask.add(task);  
+          });
+         });
+
+      }else{
+        print('User has cancelled the selection!');
+      }
+    }
+    catch(e){
+
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: tooLightBlue,
       appBar: AppBar(
@@ -114,7 +159,7 @@ class _CreateCourseState extends State<CreateCourse> {
                   SizedBox(height: 30),
                   // ignore: deprecated_member_use
                   RaisedButton(
-                    onPressed: () {},
+                    onPressed: () => selectFiles().whenComplete(() => CreateCourse()),
                     padding: const EdgeInsets.all(15),
                     color: blue,
                     shape: new RoundedRectangleBorder(
@@ -136,13 +181,30 @@ class _CreateCourseState extends State<CreateCourse> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Center(
-                    child: Text(
+                  Center( 
+                    child: uploadedTask.length == 0 ? 
+                    Text(
                       'No files selected',
                       style: GoogleFonts.poppins(
                         color: darkBlue, 
                         fontSize: 18,
                       ),
+                    ) : 
+                    ListView.separated(
+                      itemBuilder: (context, index) {
+                        return StreamBuilder<TaskSnapshot>(
+                          builder: (context, snapShot) {
+                            return snapShot.connectionState == ConnectionState.waiting ? CircularProgressIndicator() : 
+                              snapShot.hasError ? Text('There is some error uploading file.') : snapShot.hasData ? 
+                                ListTile(
+                                  title: Text("${snapShot.data!.bytesTransferred}/${snapShot.data!.totalBytes} ${snapShot.data!.state == TaskState.success ? 'Completed' : snapShot.data!.state == TaskState.running ? 'In progress' : 'Error'}"),
+                                ) : Container();
+                          },
+                          stream: uploadedTask[index].snapshotEvents,
+                        );
+                      }, 
+                      separatorBuilder: (context, index) => Divider(), 
+                      itemCount: uploadedTask.length
                     ),
                   ),
                   SizedBox(height: 30),

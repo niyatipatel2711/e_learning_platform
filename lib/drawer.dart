@@ -8,9 +8,28 @@ import 'dart:ui';
 import 'login_signup/login.dart';
 import 'login_signup/methods.dart';
 
-class DrawerHome extends StatelessWidget {
+class DrawerHome extends StatefulWidget {
+  const DrawerHome({Key? key}) : super(key: key);
+
+  @override
+  _DrawerHomeState createState() => _DrawerHomeState();
+}
+
+class _DrawerHomeState extends State<DrawerHome> {
+  String profileURI =
+      'https://raw.githubusercontent.com/niyatipatel2711/e_learning_platform/master/assets/images/user.png';
+
+  _checkForProfile() {
+    if (FirebaseAuth.instance.currentUser!.photoURL != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+
     final user = FirebaseAuth.instance.currentUser;
 
     return Drawer(
@@ -37,13 +56,14 @@ class DrawerHome extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                            image: NetworkImage(user!.photoURL.toString()),
+                            image: _checkForProfile()
+                                ? NetworkImage(user!.photoURL.toString())
+                                : NetworkImage(profileURI),
                             fit: BoxFit.fill),
                       )),
-                      
-                  SizedBox(height:5),
+                  SizedBox(height: 5),
                   Text(
-                    user.displayName.toString(),
+                    user!.displayName.toString(),
                     //auth.currentUser!.displayName.toString(),
                     style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w500,
@@ -74,8 +94,8 @@ class DrawerHome extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Profile()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Profile()));
             },
           ),
           ListTile(

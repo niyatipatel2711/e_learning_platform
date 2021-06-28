@@ -15,7 +15,9 @@ import 'main.dart';
 
 String profileURI =
     'https://raw.githubusercontent.com/niyatipatel2711/e_learning_platform/master/assets/images/user.png';
-late String email, photoURL;
+
+String? email;
+String? photoURL;
 
 _checkForProfile() {
   if (FirebaseAuth.instance.currentUser!.photoURL != null) {
@@ -40,6 +42,9 @@ class _ProfileState extends State<Profile> {
   bool hidePassword1 = true;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
+  // var email = FirebaseAuth.instance.currentUser!.email.toString();
+  // var photoURL = FirebaseAuth.instance.currentUser!.photoURL.toString();
+
   String _display_name =
       FirebaseAuth.instance.currentUser!.displayName.toString();
   //String _email = user!.email.toString();
@@ -55,6 +60,7 @@ class _ProfileState extends State<Profile> {
     photoURL = FirebaseAuth.instance.currentUser!.photoURL.toString();
 
     super.initState();
+    
   }
 
   @override
@@ -524,34 +530,10 @@ class ProfilePic extends StatelessWidget {
         CircleAvatar(
           //backgroundImage: NetworkImage(user!.photoURL.toString(),),
           backgroundImage: _checkForProfile()
-              ? NetworkImage(photoURL)
+              ? NetworkImage(photoURL!)
               : NetworkImage(profileURI),
           backgroundColor: Colors.transparent,
         ),
-        // Positioned(
-        //   right: -12,
-        //   bottom: 0,
-        //   child: SizedBox(
-        //     height: 46,
-        //     width: 46,
-        //     child: Padding(
-        //       padding: const EdgeInsets.all(0.0),
-        //       child: ElevatedButton(
-        //         style: ButtonStyle(
-        //           backgroundColor: MaterialStateProperty.all(Color(0xFFF5F6F9)),
-        //           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        //               RoundedRectangleBorder(
-        //                   borderRadius: BorderRadius.circular(50),
-        //                   side: BorderSide(color: Colors.white))),
-        //         ),
-        //         onPressed: () {
-
-        //         },
-        //         child: SvgPicture.asset('assets/camera.svg'),
-        //       ),
-        //     ),
-        //   ),
-        // ),
       ]),
     );
   }
