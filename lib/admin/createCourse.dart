@@ -190,19 +190,7 @@ class _CreateCourseState extends State<CreateCourse> {
                                       child: VideoPlayer(_videoPlayerController),
                                     )
                                   : Container()
-                          // file != null
-                          //   // _videoPlayerController.value.initialized
-                          //       ? GridView.count(
-                          //           crossAxisCount:2,
-                          //           children:
-                          //               List.generate(file.length, (index) {
-                          //             var vid = _videos[index];
-                          //             return Container(
-                          //               child:Image.file(vid),
-                          //                );
-                          //           }),
-                          //         )
-                          //       : Container()
+                         
                           else
                             Text(
                               'No files selected',
