@@ -1,8 +1,13 @@
+
 import 'dart:io';
+
 import 'package:e_learning/constants.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:video_player/video_player.dart';
+import 'dart:ui';
 
 class CreateCourse extends StatefulWidget {
   const CreateCourse({Key? key}) : super(key: key);
@@ -12,24 +17,43 @@ class CreateCourse extends StatefulWidget {
 }
 
 class _CreateCourseState extends State<CreateCourse> {
+  late VideoPlayerController _videoPlayerController;
 
-  Future selectFiles() async{
-    FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: true, type: FileType.video);
-    if(result != null) {
-      List<File> files = result.paths.map((path) => File(path!)).toList();
+  File? files;
+  File? video;
+  List _videos = [];
+  _selectFiles() async {
+    // final result = await FilePicker.platform.pickFiles(allowMultiple: true, type: FileType.video);
+    // if(result != null) {
+    //   List<File> file = result.paths.map((path) => File(path!)).toList();
+    //   setState(() {
+    //     files =  file as File?;
+    //   });
 
-    } else {
-      // User canceled the picker
-    }
+    // } else {
+    //   // User canceled the pickerr
+    // }
+
+    final result = await ImagePicker.platform.pickVideo(source: ImageSource.gallery);
+      
+      video = File(result!.path);
+      // _videos.add(video);
+      
+    
+    
+
+    // files = File(video!.path);
+    _videoPlayerController = VideoPlayerController.file(video )
+      ..initialize().then((_) {
+        setState(() {});
+        _videoPlayerController.play();
+      });
   }
-  
-  Future uploadFiles() async {
 
-  }
+  Future uploadFiles() async {}
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: tooLightBlue,
       appBar: AppBar(
@@ -114,7 +138,9 @@ class _CreateCourseState extends State<CreateCourse> {
                   SizedBox(height: 30),
                   // ignore: deprecated_member_use
                   RaisedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _selectFiles();
+                    },
                     padding: const EdgeInsets.all(15),
                     color: blue,
                     shape: new RoundedRectangleBorder(
@@ -136,21 +162,63 @@ class _CreateCourseState extends State<CreateCourse> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Center(
-                    child: Text(
-                      'No files selected',
-                      style: GoogleFonts.poppins(
-                        color: darkBlue, 
-                        fontSize: 18,
+                  SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          if (_videoPlayerController.value.isPlaying) {
+                            _videoPlayerController.pause();
+                            
+                            
+                          } else {
+                            _videoPlayerController.play();
+                            
+                          }
+                        });
+                      },
+                      child: Container(
+                        // height:250,
+                        width: MediaQuery.of(context).size.width * .9,
+                        child: Column(children: [
+                          if (video != null)
+
+                              _videoPlayerController.value.initialized
+                                  ? AspectRatio(
+                                      aspectRatio:
+                                          _videoPlayerController.value.aspectRatio,
+                                      child: VideoPlayer(_videoPlayerController),
+                                    )
+                                  : Container()
+                          // file != null
+                          //   // _videoPlayerController.value.initialized
+                          //       ? GridView.count(
+                          //           crossAxisCount:2,
+                          //           children:
+                          //               List.generate(file.length, (index) {
+                          //             var vid = _videos[index];
+                          //             return Container(
+                          //               child:Image.file(vid),
+                          //                );
+                          //           }),
+                          //         )
+                          //       : Container()
+                          else
+                            Text(
+                              'No files selected',
+                              style: GoogleFonts.poppins(
+                                color: darkBlue,
+                                fontSize: 18,
+                              ),
+                            ),
+                        ]),
                       ),
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 20),
                   // ignore: deprecated_member_use
                   RaisedButton(
-                    onPressed: () {
-
-                    },
+                    onPressed: () {},
                     padding: const EdgeInsets.all(15),
                     color: lightBlue,
                     shape: new RoundedRectangleBorder(
@@ -168,7 +236,7 @@ class _CreateCourseState extends State<CreateCourse> {
                         ),
                         SizedBox(width: 10),
                         Icon(
-                          Icons.upload, 
+                          Icons.upload,
                           color: blue,
                         ),
                       ],
