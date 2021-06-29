@@ -1,9 +1,11 @@
-
 import 'dart:io';
 
+import 'package:e_learning/admin/adminhomescreen.dart';
 import 'package:e_learning/constants.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
@@ -18,6 +20,8 @@ class CreateCourse extends StatefulWidget {
 
 class _CreateCourseState extends State<CreateCourse> {
   late VideoPlayerController _videoPlayerController;
+
+  bool isuploading = false;
 
   File? files;
   File? video;
@@ -34,23 +38,59 @@ class _CreateCourseState extends State<CreateCourse> {
     //   // User canceled the pickerr
     // }
 
-    final result = await ImagePicker.platform.pickVideo(source: ImageSource.gallery);
-      
-      video = File(result!.path);
-      // _videos.add(video);
-      
-    
-    
-
+    final result =
+        await ImagePicker.platform.pickVideo(source: ImageSource.gallery);
+    video = File(result!.path);
+    // _videos.add(video);
     // files = File(video!.path);
-    _videoPlayerController = VideoPlayerController.file(video )
+    _videoPlayerController = VideoPlayerController.file(video)
       ..initialize().then((_) {
         setState(() {});
         _videoPlayerController.play();
       });
   }
 
-  Future uploadFiles() async {}
+  Future uploadFiles() async {
+    try {
+      if (video != null) {
+        final Reference firebaseStorageRef =
+            FirebaseStorage.instance.ref().child("videos");
+        var timekey = new DateTime.now();
+        final UploadTask task = firebaseStorageRef
+            .child(timekey.toString() + ".mp4")
+            .putFile(video!);
+        gotoAdmin();
+      } else {
+        Fluttertoast.showToast(
+            msg: " Pleaser Select Video",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void handleSubmit() {
+    
+    setState(() {
+  
+   _videoPlayerController.pause();
+
+      isuploading = true;
+      uploadFiles();
+    });
+  }
+
+  void gotoAdmin() {
+    Navigator.pop(context);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AdminHomeScreen()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +115,7 @@ class _CreateCourseState extends State<CreateCourse> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
+          // height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -169,28 +209,22 @@ class _CreateCourseState extends State<CreateCourse> {
                         setState(() {
                           if (_videoPlayerController.value.isPlaying) {
                             _videoPlayerController.pause();
-                            
-                            
                           } else {
                             _videoPlayerController.play();
-                            
                           }
                         });
                       },
                       child: Container(
-                        // height:250,
                         width: MediaQuery.of(context).size.width * .9,
                         child: Column(children: [
                           if (video != null)
-
-                              _videoPlayerController.value.initialized
-                                  ? AspectRatio(
-                                      aspectRatio:
-                                          _videoPlayerController.value.aspectRatio,
-                                      child: VideoPlayer(_videoPlayerController),
-                                    )
-                                  : Container()
-                         
+                            _videoPlayerController.value.initialized
+                                ? AspectRatio(
+                                    aspectRatio: _videoPlayerController
+                                        .value.aspectRatio,
+                                    child: VideoPlayer(_videoPlayerController),
+                                  )
+                                : Container()
                           else
                             Text(
                               'No files selected',
@@ -205,8 +239,9 @@ class _CreateCourseState extends State<CreateCourse> {
                   ),
                   SizedBox(height: 20),
                   // ignore: deprecated_member_use
+                  isuploading ? LinearProgressIndicator() : Text(" "),
                   RaisedButton(
-                    onPressed: () {},
+                    onPressed: isuploading ? null : () => handleSubmit(),
                     padding: const EdgeInsets.all(15),
                     color: lightBlue,
                     shape: new RoundedRectangleBorder(
