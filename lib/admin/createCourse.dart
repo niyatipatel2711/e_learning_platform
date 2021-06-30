@@ -21,6 +21,10 @@ class CreateCourse extends StatefulWidget {
 class _CreateCourseState extends State<CreateCourse> {
   late VideoPlayerController _videoPlayerController;
 
+ var coursetitle = TextEditingController();
+  var videoName = TextEditingController();
+
+
   bool isuploading = false;
 
   File? files;
@@ -53,11 +57,15 @@ class _CreateCourseState extends State<CreateCourse> {
   Future uploadFiles() async {
     try {
       if (video != null) {
+
+      String _coursetitle = coursetitle.text; 
+            String _videoName = videoName.text; 
+
         final Reference firebaseStorageRef =
-            FirebaseStorage.instance.ref().child("videos");
-        var timekey = new DateTime.now();
+            FirebaseStorage.instance.ref().child('$_coursetitle');
+        // var timekey = new DateTime.now();
         final UploadTask task = firebaseStorageRef
-            .child(timekey.toString() + ".mp4")
+            .child('$_videoName'.toString() + ".mp4")
             .putFile(video!);
         gotoAdmin();
       } else {
@@ -133,6 +141,7 @@ class _CreateCourseState extends State<CreateCourse> {
                   ),
                   SizedBox(height: 10),
                   TextFormField(
+                    controller: coursetitle,
                     style: GoogleFonts.poppins(color: blue),
                     decoration: InputDecoration(
                       border: UnderlineInputBorder(),
@@ -146,7 +155,7 @@ class _CreateCourseState extends State<CreateCourse> {
                   ),
                   SizedBox(height: 30),
                   Text(
-                    'What category best fits the course?',
+                    'Enter your video Name?',
                     style: GoogleFonts.poppins(
                       color: darkBlue,
                       fontSize: 20,
@@ -155,10 +164,11 @@ class _CreateCourseState extends State<CreateCourse> {
                   ),
                   SizedBox(height: 10),
                   TextFormField(
+                    controller: videoName,
                     style: GoogleFonts.poppins(color: blue),
                     decoration: InputDecoration(
                       border: UnderlineInputBorder(),
-                      hintText: 'Enter the category of course',
+                      hintText: ' Video Name',
                       hintStyle: GoogleFonts.poppins(
                         color: Colors.blueGrey,
                         fontWeight: FontWeight.w300,
