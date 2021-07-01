@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
@@ -21,27 +22,16 @@ class CreateCourse extends StatefulWidget {
 class _CreateCourseState extends State<CreateCourse> {
   late VideoPlayerController _videoPlayerController;
 
- var coursetitle = TextEditingController();
+  var coursetitle = TextEditingController();
   var videoName = TextEditingController();
-
 
   bool isuploading = false;
 
   File? files;
   File? video;
-  List _videos = [];
+
+
   _selectFiles() async {
-    // final result = await FilePicker.platform.pickFiles(allowMultiple: true, type: FileType.video);
-    // if(result != null) {
-    //   List<File> file = result.paths.map((path) => File(path!)).toList();
-    //   setState(() {
-    //     files =  file as File?;
-    //   });
-
-    // } else {
-    //   // User canceled the pickerr
-    // }
-
     final result =
         await ImagePicker.platform.pickVideo(source: ImageSource.gallery);
     video = File(result!.path);
@@ -54,44 +44,51 @@ class _CreateCourseState extends State<CreateCourse> {
       });
   }
 
+  void handleSubmit() {
+    // if (videoName.text.isNotEmpty && coursetitle.text.isNotEmpty) {
+      setState(() {
+        _videoPlayerController.pause();
+        isuploading = true;
+        
+      });
+      uploadFiles();
+    // }
+  }
+
   Future uploadFiles() async {
     try {
-      if (video != null) {
+        if (videoName.text.isNotEmpty && coursetitle.text.isNotEmpty && video.toString().isNotEmpty)  {
+          String _coursetitle = coursetitle.text;
+          String _videoName = videoName.text;
 
-      String _coursetitle = coursetitle.text; 
-            String _videoName = videoName.text; 
-
-        final Reference firebaseStorageRef =
-            FirebaseStorage.instance.ref().child('$_coursetitle');
-        // var timekey = new DateTime.now();
-        final UploadTask task = firebaseStorageRef
-            .child('$_videoName'.toString() + ".mp4")
-            .putFile(video!);
-        gotoAdmin();
-      } else {
-        Fluttertoast.showToast(
-            msg: " Pleaser Select Video",
-            toastLength: Toast.LENGTH_SHORT,
+          final Reference firebaseStorageRef =
+              FirebaseStorage.instance.ref().child('$_coursetitle');
+          // var timekey = new DateTime.now();
+          final UploadTask task = firebaseStorageRef
+              .child('$_videoName'.toString() + ".mp4")
+              .putFile(video!);
+          gotoAdmin();
+        }
+        else
+        {
+          Fluttertoast.showToast(
+            msg: " Please , Fill all detail",
+            // toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.green,
+            // timeInSecForIosWeb: 1,
+            backgroundColor: Colors.blue,
             textColor: Colors.white,
-            fontSize: 16.0);
-      }
+            fontSize: 15.0
+            );
+            
+            setState(() {
+              isuploading = false;
+            });
+        }
+      
     } catch (e) {
       print(e);
     }
-  }
-
-  void handleSubmit() {
-    
-    setState(() {
-  
-   _videoPlayerController.pause();
-
-      isuploading = true;
-      uploadFiles();
-    });
   }
 
   void gotoAdmin() {
@@ -114,7 +111,9 @@ class _CreateCourseState extends State<CreateCourse> {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                
+              },
               icon: Icon(
                 Icons.logout,
                 color: blue,
@@ -152,6 +151,8 @@ class _CreateCourseState extends State<CreateCourse> {
                       ),
                       fillColor: Colors.transparent,
                     ),
+                    validator: MultiValidator(
+                        [RequiredValidator(errorText: "Required")]),
                   ),
                   SizedBox(height: 30),
                   Text(
@@ -175,6 +176,8 @@ class _CreateCourseState extends State<CreateCourse> {
                       ),
                       fillColor: Colors.transparent,
                     ),
+                    validator: MultiValidator(
+                        [RequiredValidator(errorText: "Required")]),
                   ),
                   SizedBox(height: 30),
                   Text(
@@ -249,7 +252,7 @@ class _CreateCourseState extends State<CreateCourse> {
                   ),
                   SizedBox(height: 20),
                   // ignore: deprecated_member_use
-                  isuploading ? LinearProgressIndicator() : Text(" "),
+                  isuploading ? LinearProgressIndicator() : Text(""),
                   RaisedButton(
                     onPressed: isuploading ? null : () => handleSubmit(),
                     padding: const EdgeInsets.all(15),

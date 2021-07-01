@@ -39,7 +39,7 @@ dependencies:
   cloud_firestore: ^2.2.2
   provider: ^5.0.0
   network: 
-  fluttertoast: ^7.1.6
+  fluttertoast: ^7.1.1
 
   image_picker: ^0.7.0
   video_player: ^0.10.2+1
