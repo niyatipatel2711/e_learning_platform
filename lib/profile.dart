@@ -45,7 +45,7 @@ class _ProfileState extends State<Profile> {
   // var email = FirebaseAuth.instance.currentUser!.email.toString();
   // var photoURL = FirebaseAuth.instance.currentUser!.photoURL.toString();
 
-  String _display_name =
+  String dispalyName =
       FirebaseAuth.instance.currentUser!.displayName.toString();
   //String _email = user!.email.toString();
 
@@ -346,7 +346,7 @@ class _ProfileState extends State<Profile> {
                         BoxConstraints.tightFor(width: 200, height: 50),
                     child: ElevatedButton(
                         onPressed: () {
-                          if (_name.text.trim() != _display_name ||
+                          if (_name.text.trim() != dispalyName ||
                               _confirmPassword.text.trim().isNotEmpty) {
                             FirebaseAuth.instance.currentUser!
                                 .updateDisplayName(_name.text);

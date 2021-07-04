@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:e_learning/admin/adminhomescreen.dart';
 import 'package:e_learning/constants.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -37,7 +35,7 @@ class _CreateCourseState extends State<CreateCourse> {
     video = File(result!.path);
     // _videos.add(video);
     // files = File(video!.path);
-    _videoPlayerController = VideoPlayerController.file(video)
+    _videoPlayerController = VideoPlayerController.file(video!)
       ..initialize().then((_) {
         setState(() {});
         _videoPlayerController.play();
@@ -110,14 +108,14 @@ class _CreateCourseState extends State<CreateCourse> {
           height: 40,
         ),
         actions: [
-          IconButton(
-              onPressed: () {
+          // IconButton(
+          //     onPressed: () {
                 
-              },
-              icon: Icon(
-                Icons.logout,
-                color: blue,
-              )),
+          //     },
+          //     icon: Icon(
+          //       Icons.logout,
+          //       color: blue,
+          //     )),
         ],
       ),
       body: SingleChildScrollView(
@@ -231,7 +229,7 @@ class _CreateCourseState extends State<CreateCourse> {
                         width: MediaQuery.of(context).size.width * .9,
                         child: Column(children: [
                           if (video != null)
-                            _videoPlayerController.value.initialized
+                            _videoPlayerController.value.isInitialized
                                 ? AspectRatio(
                                     aspectRatio: _videoPlayerController
                                         .value.aspectRatio,
@@ -251,8 +249,8 @@ class _CreateCourseState extends State<CreateCourse> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  // ignore: deprecated_member_use
                   isuploading ? LinearProgressIndicator() : Text(""),
+                  // ignore: deprecated_member_use
                   RaisedButton(
                     onPressed: isuploading ? null : () => handleSubmit(),
                     padding: const EdgeInsets.all(15),

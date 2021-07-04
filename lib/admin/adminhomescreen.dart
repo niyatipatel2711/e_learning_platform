@@ -1,5 +1,6 @@
 
 import 'package:e_learning/login_signup/login.dart';
+import 'package:e_learning/login_signup/methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,25 +36,34 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           ),
         ),
         actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 10.0, top: 10, bottom: 10),
-            child: Container(
-              height: 35,
-              width: 100,
-              // ignore: deprecated_member_use
-              child: RaisedButton(
-                textColor: Colors.white,
-                color: Colors.red,
-                onPressed: () {
-                  Route route = MaterialPageRoute(builder: (e) => Login());
-                  Navigator.pushReplacement(context, route);
-                },
-                child: Text("Logout"),
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(10.0),
-                ),
-              ),
-            ),
+          // Padding(
+          //   padding: EdgeInsets.only(right: 10.0, top: 10, bottom: 10),
+          //   child: Container(
+          //     height: 35,
+          //     width: 100,
+          //     // ignore: deprecated_member_use
+          //     child: RaisedButton(
+          //       textColor: Colors.white,
+          //       color: Colors.red,
+          //       onPressed: () {
+          //         Route route = MaterialPageRoute(builder: (e) => Login());
+          //         Navigator.pushReplacement(context, route);
+          //       },
+          //       child: Text("Logout"),
+          //       shape: new RoundedRectangleBorder(
+          //         borderRadius: new BorderRadius.circular(10.0),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          IconButton(
+            onPressed: () {
+              logOut().whenComplete(() => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Login(),), (route) => false));
+            },
+            icon: Icon(
+              Icons.logout,
+              color: blue,
+            )
           ),
         ],
       ),
