@@ -154,7 +154,7 @@ class _CreateCourseState extends State<CreateCourse> {
                   ),
                   SizedBox(height: 30),
                   Text(
-                    'Enter your video Name?',
+                    'What\'s the name of your video?',
                     style: GoogleFonts.poppins(
                       color: darkBlue,
                       fontSize: 20,
@@ -167,7 +167,7 @@ class _CreateCourseState extends State<CreateCourse> {
                     style: GoogleFonts.poppins(color: blue),
                     decoration: InputDecoration(
                       border: UnderlineInputBorder(),
-                      hintText: ' Video Name',
+                      hintText: 'Enter the name of video',
                       hintStyle: GoogleFonts.poppins(
                         color: Colors.blueGrey,
                         fontWeight: FontWeight.w300,
