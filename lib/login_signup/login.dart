@@ -1,6 +1,4 @@
 
-import 'package:e_learning/admin/AdminStart.dart';
-
 import 'package:e_learning/HomeScreen.dart';
 import 'package:e_learning/constants.dart';
 import 'package:e_learning/login_signup/adminlogin.dart';
