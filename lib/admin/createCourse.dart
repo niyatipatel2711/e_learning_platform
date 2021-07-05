@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_learning/admin/adminhomescreen.dart';
 import 'package:e_learning/constants.dart';
 import 'package:file_picker/file_picker.dart';
@@ -30,11 +31,14 @@ class _CreateCourseState extends State<CreateCourse> {
   File? files;
   File? video;
 
+  List<String?> videos = [];
+  final firestoreInstance = FirebaseFirestore.instance;
 
-  _selectFiles() async {
+  void _selectFiles() async {
     final result =
         await ImagePicker.platform.pickVideo(source: ImageSource.gallery);
     video = File(result!.path);
+    videos.add(result.path);
     // _videos.add(video);
     // files = File(video!.path);
     _videoPlayerController = VideoPlayerController.file(video)
@@ -46,46 +50,55 @@ class _CreateCourseState extends State<CreateCourse> {
 
   void handleSubmit() {
     // if (videoName.text.isNotEmpty && coursetitle.text.isNotEmpty) {
-      setState(() {
-        _videoPlayerController.pause();
-        isuploading = true;
-        
-      });
-      uploadFiles();
+    setState(() {
+      _videoPlayerController.pause();
+      isuploading = true;
+    });
+    uploadFiles();
     // }
   }
 
   Future uploadFiles() async {
     try {
-        if (videoName.text.isNotEmpty && coursetitle.text.isNotEmpty && video.toString().isNotEmpty)  {
-          String _coursetitle = coursetitle.text;
-          String _videoName = videoName.text;
+      if (videoName.text.isNotEmpty &&
+          coursetitle.text.isNotEmpty &&
+          video.toString().isNotEmpty) {
+        String _coursetitle = coursetitle.text;
+        String _videoName = videoName.text;
 
-          final Reference firebaseStorageRef =
-              FirebaseStorage.instance.ref().child('$_coursetitle');
-          // var timekey = new DateTime.now();
-          final UploadTask task = firebaseStorageRef
-              .child('$_videoName'.toString() + ".mp4")
-              .putFile(video!);
-          gotoAdmin();
-        }
-        else
-        {
-          Fluttertoast.showToast(
+        // final Reference firebaseStorageRef =
+        //     FirebaseStorage.instance.ref().child('$_coursetitle');
+        // // var timekey = new DateTime.now();
+        // final UploadTask task = firebaseStorageRef
+        //     .child('$_videoName'.toString() + ".mp4")
+        //     .putFile(video!);
+
+        firestoreInstance
+            .collection("Courses")
+            .doc()
+            .collection('$_coursetitle')
+            .add({
+          "name": _videoName,
+          "url": video.toString(),
+        }).then((value) {
+          print(value.id);
+        });
+
+        gotoAdmin();
+      } else {
+        Fluttertoast.showToast(
             msg: " Please , Fill all detail",
             // toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             // timeInSecForIosWeb: 1,
             backgroundColor: Colors.blue,
             textColor: Colors.white,
-            fontSize: 15.0
-            );
-            
-            setState(() {
-              isuploading = false;
-            });
-        }
-      
+            fontSize: 15.0);
+
+        setState(() {
+          isuploading = false;
+        });
+      }
     } catch (e) {
       print(e);
     }
@@ -111,9 +124,7 @@ class _CreateCourseState extends State<CreateCourse> {
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                
-              },
+              onPressed: () {},
               icon: Icon(
                 Icons.logout,
                 color: blue,
