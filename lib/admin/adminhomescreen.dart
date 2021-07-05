@@ -1,5 +1,5 @@
-
 import 'package:e_learning/login_signup/login.dart';
+import 'package:e_learning/login_signup/methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,10 +17,7 @@ class AdminHomeScreen extends StatefulWidget {
 }
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
-
   @override
-
-  
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: tooLightBlue,
@@ -35,26 +32,39 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           ),
         ),
         actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 10.0, top: 10, bottom: 10),
-            child: Container(
-              height: 35,
-              width: 100,
-              // ignore: deprecated_member_use
-              child: RaisedButton(
-                textColor: Colors.white,
-                color: Colors.red,
-                onPressed: () {
-                  Route route = MaterialPageRoute(builder: (e) => Login());
-                  Navigator.pushReplacement(context, route);
-                },
-                child: Text("Logout"),
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(10.0),
-                ),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.only(right: 10.0, top: 10, bottom: 10),
+          //   child: Container(
+          //     height: 35,
+          //     width: 100,
+          //     // ignore: deprecated_member_use
+          //     child: RaisedButton(
+          //       textColor: Colors.white,
+          //       color: Colors.red,
+          //       onPressed: () {
+          //         Route route = MaterialPageRoute(builder: (e) => Login());
+          //         Navigator.pushReplacement(context, route);
+          //       },
+          //       child: Text("Logout"),
+          //       shape: new RoundedRectangleBorder(
+          //         borderRadius: new BorderRadius.circular(10.0),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          IconButton(
+              onPressed: () {
+                logOut().whenComplete(
+                    () => Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => Login(),
+                        ),
+                        (route) => false));
+              },
+              icon: Icon(
+                Icons.logout,
+                color: blue,
+              )),
         ],
       ),
       body: Padding(
@@ -101,10 +111,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       RaisedButton(
                         padding: EdgeInsets.only(
                             left: 30, top: 10, right: 20, bottom: 10),
-
-                        onPressed: (){
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CreateCourse()));
-
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CreateCourse()));
                         },
                         color: pink,
                         shape: new RoundedRectangleBorder(
@@ -126,6 +137,77 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       ),
                     ],
                   ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Your courses",
+                style: GoogleFonts.poppins(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                    height: 1.2,
+                    color: Color(0xff0D1333)),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color:
+                                  Color(0xff2657ce),
+                                  //: Color(0xffd3defa),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(15),
+                              )),
+                          child: Icon(
+                            Icons.play_arrow,
+                            color:
+                                Colors.white,
+                                //: Color(0xff2657ce),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Course name',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  color: darkBlue),
+                            ),
+                            Text(
+                              'Info',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.blueGrey),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Divider(
+                      color: lightBlue,
+                      thickness: 1,
+                    )
+                  ],
                 ),
               ),
             ],
