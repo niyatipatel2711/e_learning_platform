@@ -22,3 +22,7 @@ The following packages are needed for the development of this application.
 * provider: ^5.0.0
 * network: ^1.0.0-nullsafety.0 
 * fluttertoast: ^8.0.7
+* image_picker: ^0.8.1+3
+* video_player: ^2.1.6
+* file_picker: ^3.0.3 
+* firebase_storage: ^9.0.0
