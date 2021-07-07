@@ -1,3 +1,4 @@
+import 'package:e_learning/admin/createCourse.dart';
 import 'package:e_learning/login_signup/login.dart';
 import 'package:e_learning/login_signup/methods.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui';
 
 import '../constants.dart';
-import 'createCourse.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
@@ -17,6 +17,12 @@ class AdminHomeScreen extends StatefulWidget {
 }
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
+
+  var coursetitle = TextEditingController();
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +60,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           // ),
           IconButton(
               onPressed: () {
+                
                 logOut().whenComplete(
                     () => Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
@@ -67,7 +74,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               )),
         ],
       ),
-      body: Padding(
+      body: 
+      
+      Padding(
+        
         padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
         child: Container(
           child: Column(
@@ -182,10 +192,13 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           width: 10,
                         ),
                         Column(
+
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            
                             Text(
-                              'Course name',
+                              
+                              'Coursetitle',
                               style: GoogleFonts.poppins(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,

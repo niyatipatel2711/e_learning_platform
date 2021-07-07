@@ -110,7 +110,7 @@ class _ProfileState extends State<Profile> {
                                 builder: (context) => Adminlogin()),
                             (route) => false);
                       } else {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => AdminHomeScreen()));

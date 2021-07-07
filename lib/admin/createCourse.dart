@@ -62,6 +62,7 @@ class _CreateCourseState extends State<CreateCourse> {
       if (videoName.text.isNotEmpty &&
           coursetitle.text.isNotEmpty &&
           video.toString().isNotEmpty) {
+
         String _coursetitle = coursetitle.text;
         String _videoName = videoName.text;
 
@@ -71,9 +72,9 @@ class _CreateCourseState extends State<CreateCourse> {
         // final UploadTask task = firebaseStorageRef
         //     .child('$_videoName'.toString() + ".mp4")
         //     .putFile(video!);
-
+        
         firestoreInstance
-            .collection("Courses")
+            .collection("Course")
             .doc()
             .collection('$_coursetitle')
             .add({

@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui';
+import 'AllVideos.dart';
 import 'Drawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -142,7 +143,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>AllVideos()));
+
+                      },
                       icon: Icon(
                         Icons.play_circle_filled,
                         color: Color(0xffdc2430).withOpacity(0.5),
