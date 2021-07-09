@@ -3,11 +3,10 @@ import 'package:e_learning/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'dart:ui';
-
 import 'login_signup/login.dart';
 import 'login_signup/methods.dart';
+import 'package:share/share.dart';
 
 class DrawerHome extends StatefulWidget {
   const DrawerHome({Key? key}) : super(key: key);
@@ -108,9 +107,10 @@ class _DrawerHomeState extends State<DrawerHome> {
               ),
             ),
             onTap: () {
-              // Share.share(
-              //     "Listen this song https://www.youtube.com/watch?v=kJQP7kiw5Fk Most viewed song in the world",
-              //     subject: "Despacito Song");
+              Share.share(
+                  "Fr0m below link you can download this app:\nhttps://drive.google.com/file/d/1qGukdHyASLAQDT5EFqwPlY8RNDvU04Ze/view?usp=sharing", 
+                  subject: "E_learning"
+              );
             },
           ),
           ListTile(
