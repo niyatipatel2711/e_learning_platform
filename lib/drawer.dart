@@ -1,3 +1,4 @@
+import 'package:e_learning/discussionForum.dart';
 import 'package:e_learning/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -110,6 +111,19 @@ class _DrawerHomeState extends State<DrawerHome> {
               // Share.share(
               //     "Listen this song https://www.youtube.com/watch?v=kJQP7kiw5Fk Most viewed song in the world",
               //     subject: "Despacito Song");
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.chat),
+            title: Text(
+              "Q & A",
+              style: GoogleFonts.poppins(
+                fontSize: 18,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => DiscussionForum()));
             },
           ),
           ListTile(
